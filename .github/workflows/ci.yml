@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  no-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - run: python scripts/check_no_comments.py
+
+  cpp:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-tools.txt
+      - run: pip install -r requirements-tools.txt
+      - name: Format check
+        run: clang-format --dry-run --Werror $(git ls-files '*.cpp' '*.hpp')
+      - uses: actions/cache@v6
+        with:
+          path: build/debug/_deps
+          key: deps-${{ runner.os }}-${{ hashFiles('CMakeLists.txt') }}
+      - name: Configure
+        run: cmake --preset debug
+      - name: Lint
+        run: run-clang-tidy.py -quiet -p build/debug "$PWD/(src|apps|tests)/"
+      - name: Build
+        run: cmake --build --preset debug
+      - name: Test
+        run: ctest --preset debug
+      - name: Release build
+        run: cmake --preset release && cmake --build --preset release && ctest --preset release
