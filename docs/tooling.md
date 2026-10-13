@@ -56,3 +56,15 @@ Two lines carry `NOLINT(bugprone-command-processor)`:
 - `apps/cli/main.cpp` clears the screen with `system("cls")`, exactly as the 2019 program did. It is replaced in the
   "complete" step.
 - `tests/cli_characterization_test.cpp` starts the console program with `popen`, which is what the test is for.
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push and pull request:
+
+1. **no-comments**: `scripts/check_no_comments.py` (a copy of the studio script; never edit it here).
+2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
+   release build and its tests.
+
+The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
+format check gives the same answer on a laptop and in CI. Install them locally with
+`uv tool install clang-format==23.1.3` (and the same for the others), or `pip install -r requirements-tools.txt`.
