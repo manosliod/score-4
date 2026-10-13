@@ -42,3 +42,17 @@ finding fails the build. Three checks are switched off:
 ```sh
 run-clang-tidy.py -p build/debug
 ```
+
+Tests have their own `tests/.clang-tidy`, which keeps everything above and also switches off:
+
+| Check | Why it is off in tests |
+| --- | --- |
+| `cppcoreguidelines-avoid-magic-numbers`, `readability-magic-numbers` | Test data is literal on purpose: "row 5, column 0" is the clearest way to say where a coin is. |
+| `modernize-use-designated-initializers` | Board spots in tests are written `{5, 0}`, the same way the rules describe them; `{.row = 5, .column = 0}` on every coin makes a test hard to read. The game code itself uses the designated form. |
+| `readability-function-cognitive-complexity` | Catch2's `TEST_CASE`, `CHECK` and `GENERATE` macros expand into branches the check counts. |
+
+Two lines carry `NOLINT(bugprone-command-processor)`:
+
+- `apps/cli/main.cpp` clears the screen with `system("cls")`, exactly as the 2019 program did. It is replaced in the
+  "complete" step.
+- `tests/cli_characterization_test.cpp` starts the console program with `popen`, which is what the test is for.

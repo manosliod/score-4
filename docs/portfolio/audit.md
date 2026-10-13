@@ -44,7 +44,7 @@ characterization tests.
 | `anti-diagonal-missed` | A diagonal rising to the right is **not** seen as a win; the game goes on | cut at the 12th column prompt |
 | `column-out-of-range` | Columns `0`, `8`, `-3` are asked again; `5` is accepted | cut at the 5th column prompt |
 | `tie` | All 42 cells filled with no win found | `Tie.` |
-| `full-column` | A 7th coin into a full column overwrites the top coin, then the program crashes | segfault (exit 139) after the cut |
+| `full-column` | A 7th coin into a full column overwrites the top coin; the column check then reads outside the board and the program crashes before it prints the next prompt (the redrawn board is lost with it) | segfault (exit 139) on the 8th move; output ends at the 8th column prompt |
 | `non-numeric-input` | Typing `abc` as an age makes both ages 0, then the colour prompt repeats forever | cut at the 4th repeat |
 
 ## Behaviour checklist
