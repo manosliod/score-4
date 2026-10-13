@@ -1,0 +1,19 @@
+Welcome to the game known as...
+
+Score 4
+
+1 2 3 4 5 6 7 
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+
+Welcome Player 1.
+Give me your age: 
+
+Welcome Player 2.
+Give me your age: 
+Player 1 starts cause is first.
+Type 'R' for Red color, 'Y' for Yellow color coin: Type 'R' for Red color, 'Y' for Yellow color coin: Type 'R' for Red color, 'Y' for Yellow color coin: Type 'R' for Red color, 'Y' for Yellow color coin: 
