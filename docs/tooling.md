@@ -68,3 +68,15 @@ Two lines carry `NOLINT(bugprone-command-processor)`:
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
 `uv tool install clang-format==23.1.3` (and the same for the others), or `pip install -r requirements-tools.txt`.
+
+## Claude Code hooks
+
+`.claude/settings.json` runs `scripts/claude_hook.py` at two moments:
+
+| When | What happens |
+| --- | --- |
+| After Claude edits a `.cpp` or `.hpp` file | `clang-format -i` on that file, so it always matches the format check. |
+| When Claude is about to finish its turn | If anything under `include/`, `src/`, `apps/`, `tests/` or the CMake files is changed and not committed, it configures, builds and runs the debug tests. If any step fails, Claude has to keep working. If it fails a second time in a row, the failure is shown but Claude may stop, so it can never get stuck in a loop. |
+
+The comment check (`check_no_comments.py --hook`) runs on every edit from the settings one folder up, in
+`~/Sites/manosliod/.claude/settings.json`.
