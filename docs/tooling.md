@@ -21,7 +21,8 @@ treats every warning as an error.
 
 ## Formatting
 
-`clang-format` with the LLVM style, 4-space indents and lines up to 120 characters (`.clang-format`).
+`clang-format` with the LLVM style, 4-space indents and lines up to 120 characters (`.clang-format`). It is told not
+to add `// namespace` after a closing brace, because we write no comments for people.
 
 ```sh
 clang-format --dry-run --Werror $(git ls-files '*.cpp' '*.hpp')
