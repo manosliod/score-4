@@ -68,14 +68,14 @@ std::string runCli(const Flow &flow) {
     return output;
 }
 
-} // namespace
+}
 
 TEST_CASE("console flows match the recorded 2019 output", "[cli][characterization]") {
-    const auto flow = GENERATE(Flow{"vertical-win", std::nullopt, 0}, Flow{"horizontal-win", std::nullopt, 0},
-                               Flow{"diagonal-win", std::nullopt, 0}, Flow{"tie", std::nullopt, 0},
-                               Flow{"anti-diagonal-missed", columnPrompt, 12},
-                               Flow{"column-out-of-range", columnPrompt, 5}, Flow{"full-column", columnPrompt, 9},
-                               Flow{"non-numeric-input", "Type 'R'", 4});
+    const auto flow =
+        GENERATE(Flow{"vertical-win", std::nullopt, 0}, Flow{"horizontal-win", std::nullopt, 0},
+                 Flow{"diagonal-win", std::nullopt, 0}, Flow{"tie", std::nullopt, 0},
+                 Flow{"anti-diagonal-missed", columnPrompt, 12}, Flow{"column-out-of-range", columnPrompt, 5},
+                 Flow{"full-column", columnPrompt, 9}, Flow{"non-numeric-input", "Type 'R'", 4});
     CAPTURE(flow.name);
     const auto expected = readFile(std::string(SCORE4_CLI_FIXTURES) + "/" + std::string(flow.name) + ".txt");
     CHECK(runCli(flow) == expected);
