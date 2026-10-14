@@ -6,7 +6,7 @@
 
 namespace score4 {
 
-[[nodiscard]] int landingRow(const Board &board, int column) noexcept;
+[[nodiscard]] std::optional<int> landingRow(const Board &board, int column) noexcept;
 
 [[nodiscard]] std::optional<Disc> findLine(const Board &board) noexcept;
 

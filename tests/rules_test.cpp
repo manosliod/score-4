@@ -38,12 +38,14 @@ TEST_CASE("a coin lands on the lowest empty spot of its column", "[rules]") {
     CHECK(score4::landingRow(board, 2) == 3);
 }
 
-TEST_CASE("2019 behaviour: a full column lands on the top spot again", "[rules][legacy]") {
+TEST_CASE("a full column has no spot to land on", "[rules]") {
     Board board;
-    for (int row = 0; row < score4::rowCount; ++row) {
+    for (int row = score4::rowCount - 1; row > 0; --row) {
         board.place({row, 0}, Disc::Red);
     }
     CHECK(score4::landingRow(board, 0) == 0);
+    board.place({0, 0}, Disc::Yellow);
+    CHECK_FALSE(score4::landingRow(board, 0).has_value());
 }
 
 TEST_CASE("four across wins in every row", "[rules]") {

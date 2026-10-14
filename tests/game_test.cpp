@@ -83,13 +83,14 @@ TEST_CASE("a full board with no line is a tie", "[game]") {
     CHECK(std::holds_alternative<score4::Tie>(outcome));
 }
 
-TEST_CASE("2019 behaviour: a coin into a full column replaces the top coin", "[game][legacy]") {
+TEST_CASE("a full column is refused and the turn stays", "[game]") {
     Game game(Disc::Red, Disc::Yellow, Player::One);
     static_cast<void>(playAll(game, {7, 1, 1, 1, 1, 1, 1}));
     REQUIRE(game.board().at({0, 0}) == Cell::Red);
     REQUIRE(game.turn() == Player::Two);
     const auto result = game.drop(1);
-    REQUIRE(result.has_value());
-    CHECK(game.board().at({0, 0}) == Cell::Yellow);
-    CHECK(game.turn() == Player::One);
+    REQUIRE_FALSE(result.has_value());
+    CHECK(result.error() == MoveError::ColumnFull);
+    CHECK(game.board().at({0, 0}) == Cell::Red);
+    CHECK(game.turn() == Player::Two);
 }

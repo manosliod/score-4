@@ -12,15 +12,15 @@ behaviour in C++. In practice it crashed (the `full-column` flow) or, on another
 **Why:** there is no defined behaviour to keep. Every recorded flow still produces the same output up to the point
 where the old program stopped.
 
-## The 2019 bugs stay until the "complete" step
+## The 2019 bugs were fixed one at a time
 
-**Chose:** the restructured code keeps the old rules exactly, including the missing `/` diagonal, the unchecked top
-row and the overwrite of a full column. Tests pin each of them.
+**Chose:** the restructured code first kept the old rules exactly, each pinned by a test. Each bug was then fixed in
+its own commit, with the test changed to the correct rule in that same commit.
 
 **Instead of:** fixing them while moving the code.
 
 **Why:** moving code and changing behaviour in the same step makes it impossible to tell a refactoring mistake from
-a fix. The fixes come next, each with its own test.
+a fix. The console flows in `tests/fixtures/cli/` show the output stayed the same up to the point each fix changes.
 
 ## The age rule stays
 

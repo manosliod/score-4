@@ -22,7 +22,7 @@ struct Tie {};
 
 using Outcome = std::variant<InProgress, Won, Tie>;
 
-enum class MoveError : std::uint8_t { ColumnOutOfRange };
+enum class MoveError : std::uint8_t { ColumnOutOfRange, ColumnFull };
 
 inline constexpr int firstColumnNumber = 1;
 inline constexpr int lastColumnNumber = columnCount;

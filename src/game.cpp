@@ -38,7 +38,11 @@ std::expected<Outcome, MoveError> Game::drop(int columnNumber) noexcept {
         return std::unexpected(MoveError::ColumnOutOfRange);
     }
     const int column = columnNumber - firstColumnNumber;
-    board_.place({.row = landingRow(board_, column), .column = column}, discOf(turn_));
+    const auto row = landingRow(board_, column);
+    if (!row) {
+        return std::unexpected(MoveError::ColumnFull);
+    }
+    board_.place({.row = *row, .column = column}, discOf(turn_));
     turn_ = otherPlayer(turn_);
     if (const auto disc = findLine(board_)) {
         return Won{ownerOf(*disc)};

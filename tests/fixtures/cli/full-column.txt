@@ -139,3 +139,23 @@ Y|_|_|_|_|_|R|
 
 Player 2
 Pick the column you want to drop your coin (Between 1-7): 
+
+Column 1 is full. Pick another one.
+
+Player 2
+Pick the column you want to drop your coin (Between 1-7): Score 4
+
+Player 1 Color: Red
+
+Player 2 Color: Yellow
+
+1 2 3 4 5 6 7 
+R|_|_|_|_|_|_|
+Y|_|_|_|_|_|_|
+R|_|_|_|_|_|_|
+Y|_|_|_|_|_|_|
+R|_|_|_|_|_|_|
+Y|Y|_|_|_|_|R|
+
+Player 1
+Pick the column you want to drop your coin (Between 1-7): 

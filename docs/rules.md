@@ -16,7 +16,8 @@ to the lowest empty spot in it.
 
 ## A turn
 
-1. The player whose turn it is picks a column from 1 to 7. Any other answer is asked again.
+1. The player whose turn it is picks a column from 1 to 7. Any other answer is asked again. A full column is
+   refused with `Column N is full. Pick another one.` and the same player picks again.
 2. Their coin drops into that column.
 3. The turn passes to the other player.
 
@@ -25,13 +26,6 @@ to the lowest empty spot in it.
 - **A win**: four coins of the same colour in a line, across, up and down, or diagonally. The player with that
   colour wins.
 - **A tie**: all 42 spots are full and nobody has four in a line.
-
-## What the 2019 program does differently
-
-These are the gaps between the rules above and the original program. They are kept, and tested, until the fixes in
-the next step of the refresh (see `docs/portfolio/audit.md` for the full list):
-
-- A coin dropped into a full column replaces the top coin.
 
 ## When the input runs out
 

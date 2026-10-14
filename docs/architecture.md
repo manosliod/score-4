@@ -39,6 +39,5 @@ Nothing in the core knows a front end exists.
 | --- | --- |
 | `tests/rules_test.cpp` | Every rule, case by case: landing spot, four across, up and down, each diagonal, three is not enough, full board. |
 | `tests/game_test.cpp` | Who starts, colour choices, refused columns, turns, who wins, the tie. |
-| `tests/cli_characterization_test.cpp` | Runs the console program with the inputs recorded from the 2019 version (`tests/fixtures/cli/*.in`) and checks the output is the same, character for character. |
+| `tests/cli_characterization_test.cpp` | Runs the console program with each recorded input (`tests/fixtures/cli/*.in`) and checks the output is the same, character for character. |
 
-Tests marked `[legacy]` pin the 2019 behaviour that the next step changes.

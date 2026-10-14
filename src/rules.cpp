@@ -73,13 +73,13 @@ std::optional<Disc> findDiagonalLine(const Board &board) noexcept {
 
 }
 
-int landingRow(const Board &board, int column) noexcept {
-    for (int row = bottomRow; row > topRow; --row) {
+std::optional<int> landingRow(const Board &board, int column) noexcept {
+    for (int row = bottomRow; row >= topRow; --row) {
         if (board.at({.row = row, .column = column}) == Cell::Empty) {
             return row;
         }
     }
-    return topRow;
+    return std::nullopt;
 }
 
 std::optional<Disc> findLine(const Board &board) noexcept {

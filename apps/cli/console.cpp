@@ -134,9 +134,13 @@ std::optional<Outcome> Console::playTurn(Game &game) {
         if (!column) {
             return std::nullopt;
         }
-        if (const auto outcome = game.drop(*column)) {
+        const auto outcome = game.drop(*column);
+        if (outcome) {
             redraw(game);
             return *outcome;
+        }
+        if (outcome.error() == MoveError::ColumnFull) {
+            output_.get() << "\n\nColumn " << *column << " is full. Pick another one.";
         }
     }
 }
