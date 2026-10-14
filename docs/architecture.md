@@ -1,11 +1,12 @@
 # Architecture
 
 Score 4 has two parts: a **game core** that knows the rules, and **front ends** that talk to people. The core never
-reads input or prints anything, so the same core runs behind the console and, later, the web page.
+reads input or prints anything, so the same core runs behind the console and behind the web page.
 
 ```mermaid
 flowchart LR
     CLI["Console front end<br/>apps/cli"] --> Game["Game session<br/>score4::Game"]
+    Web["Web app<br/>web/src"] --> Wasm["WebAssembly engine<br/>web/engine"] --> Game
     Game --> Rules["Rules<br/>landingRow, findLine"]
     Rules --> Board["Board<br/>score4::Board"]
 ```
@@ -41,3 +42,45 @@ Nothing in the core knows a front end exists.
 | `tests/game_test.cpp` | Who starts, colour choices, refused columns, turns, who wins, the tie. |
 | `tests/cli_characterization_test.cpp` | Runs the console program with each recorded input (`tests/fixtures/cli/*.in`) and checks the output is the same, character for character. |
 
+
+## The web app
+
+The web app in `web/` is a React app. It never knows the rules: every move goes to the same C++ game core, compiled
+to WebAssembly.
+
+```mermaid
+flowchart LR
+    Screen["Screens<br/>features/*/components"] --> Hook["Hooks<br/>features/*/hooks"]
+    Screen --> Store["Stores<br/>features/*/stores"]
+    Hook --> Store
+    Store --> Service["Engine service<br/>shared/services"]
+    Service --> Engine["WebAssembly engine<br/>build/wasm/engine"]
+```
+
+| Part | Folder | What it does |
+| --- | --- | --- |
+| Engine binding | `web/engine/bindings.cpp` | Gives the game core to JavaScript: start a match, drop a coin, read the board, the winner and the winning line. |
+| Engine service | `web/src/shared/services/engine-service.ts` | The only code that loads and calls the WebAssembly engine. It loads it once, tries again after a failure, and turns its values into plain TypeScript types. |
+| Setup | `web/src/features/setup/` | Asks for both ages, asks the engine who starts, and lets that player pick a colour. |
+| Game | `web/src/features/game/` | One game: the board, whose turn it is, the result, the full-column message, Play again and New game. |
+| Forest | `web/src/forest/` | The Material 3 parts (buttons, text field, dialog, snackbar, app bar). They know nothing about Score 4, so they can move to a shared package later. |
+| Shared | `web/src/shared/` | The board, coins and player tags, used by both setup and game. |
+| App | `web/src/app/` | Switches between setup and game, and passes the chosen players and colours from one to the other. |
+
+How the screens fit together:
+
+- **Setup and game never import each other.** The app gives each one what it needs and listens for what it reports
+  ("start this game", "go back", "new players").
+- **Each screen has its own store.** A store is created when its screen appears and thrown away with it, so a new
+  game always starts clean and every test gets a fresh one.
+- **Going back keeps the setup.** The setup screen is hidden, not removed, while a game is on, so Back returns to the
+  same colour choice.
+- **Loading and errors have their own screens.** While the engine loads, the game shows "Getting ready". If it fails,
+  it shows "The game couldn’t start" with Try again.
+- **No effects.** Nothing in the web app runs "after render". Everything happens in response to something the player
+  did, or while the screen is drawn.
+
+| Test | What it checks |
+| --- | --- |
+| `web/src/**/*.test.ts(x)` | The engine service, both stores and the board's keyboard and screen-reader behaviour. |
+| `web/e2e/*.spec.ts` | The whole game in a real browser, at the phone width (412) and the desktop width (1024) used in Figma. |

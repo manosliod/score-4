@@ -54,6 +54,55 @@ Tests have their own `tests/.clang-tidy`, which keeps everything above and also 
 One line carries `NOLINT(bugprone-command-processor)`: `tests/cli_characterization_test.cpp` starts the console
 program with `popen`, which is what the test is for.
 
+## Web app
+
+The web app lives in `web/` and uses pnpm and Node 24 (`web/.nvmrc`). Build the engine first, then the app:
+
+```sh
+source ~/.local/emsdk/emsdk_env.sh
+cd web
+pnpm install
+pnpm engine
+pnpm dev
+```
+
+| Command | What it does |
+| --- | --- |
+| `pnpm lint` | ESLint, the Prettier check, and a check that no JavaScript file is tracked anywhere in the repo. |
+| `pnpm typecheck` | The TypeScript compiler, without writing any files. |
+| `pnpm test` | Vitest: the engine service, the stores and the board. |
+| `pnpm build` | The production build, then a size check: the main script must stay under 125 kB and the styles under 12 kB, both gzipped. |
+| `pnpm e2e` | Playwright plays the game in Chromium at 412 and 1024 pixels wide. |
+
+All code is TypeScript, including the config files and the two checks in `web/scripts/`, which Node 24 runs directly.
+
+### Why the TypeScript settings are so strict
+
+On top of `strict`, `web/tsconfig.json` turns on:
+
+| Setting | What it catches |
+| --- | --- |
+| `noUncheckedIndexedAccess` | Reading `board[7]` or `ages[3]` may give nothing; the code has to say what happens then. |
+| `exactOptionalPropertyTypes` | "Not given" and "given as `undefined`" are different, so a missing prop cannot silently become `undefined`. |
+| `noPropertyAccessFromIndexSignature` | Names that may not exist (like `process.env['CI']`) are written with brackets, so it is clear they are a guess. |
+| `noImplicitOverride`, `noFallthroughCasesInSwitch` | A method that replaces another, or a `switch` case that runs into the next, has to say so. |
+| `verbatimModuleSyntax`, `erasableSyntaxOnly`, `isolatedModules` | Every file can be turned into JavaScript just by deleting the types. That is what Vite and Node do, so no TypeScript feature that needs real code generation (like `enum`) is allowed. |
+
+### Lint rules for the web app
+
+ESLint runs `typescript-eslint` (strictest type-aware rules), the React hooks and React Compiler rules, accessibility
+rules for JSX, and these project rules:
+
+| Rule | Why |
+| --- | --- |
+| No `useEffect`, `useLayoutEffect` or `useInsertionEffect` outside `src/shared/hooks/` | Code runs because the player did something, not "after render". The folder is empty in this project. |
+| Setup and game may not import each other; Forest and Shared may not import features or the app | Keeps each part replaceable and lets Forest move to a shared package. |
+| Type aliases (`type`), not `interface` | One way to write types. |
+| Kebab-case file and folder names, no default exports | Community convention; named exports keep names the same everywhere. |
+
+The accessibility rules come from `eslint-plugin-jsx-a11y-x`, a maintained fork of `eslint-plugin-jsx-a11y`, because
+the original does not support ESLint 10 yet.
+
 ## CI
 
 `.github/workflows/ci.yml` runs on every push and pull request:
@@ -61,6 +110,8 @@ program with `popen`, which is what the test is for.
 1. **no-comments**: `scripts/check_no_comments.py` (a copy of the studio script; never edit it here).
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests.
+3. **web**: installs Emscripten 6.0.12 (cached), builds the engine, then runs `pnpm lint`, `typecheck`, `test`,
+   `build` and `e2e`.
 
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
