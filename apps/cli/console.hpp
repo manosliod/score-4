@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <iosfwd>
+#include <optional>
 #include <string_view>
 
 namespace score4::cli {
@@ -15,10 +16,12 @@ class Console {
     void run();
 
   private:
-    [[nodiscard]] Game setUp();
-    [[nodiscard]] Disc askDisc(std::string_view prompt);
-    [[nodiscard]] Disc askOtherDisc(std::string_view prompt, Disc taken);
-    [[nodiscard]] Outcome playTurn(Game &game);
+    [[nodiscard]] std::optional<Game> setUp();
+    [[nodiscard]] std::optional<int> askNumber(std::string_view prompt);
+    [[nodiscard]] std::optional<int> askAge(Player player);
+    [[nodiscard]] std::optional<Disc> askDisc(std::string_view prompt);
+    [[nodiscard]] std::optional<Disc> askOtherDisc(std::string_view prompt, Disc taken);
+    [[nodiscard]] std::optional<Outcome> playTurn(Game &game);
     void redraw(const Game &game);
     void announce(const Outcome &outcome);
 
