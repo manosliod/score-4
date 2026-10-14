@@ -58,12 +58,12 @@ Secondary ring. Elsewhere they use On Surface at 10%.
 
 | Part | Compact | Expanded |
 | --- | --- | --- |
-| Board | 376 × 332, corner Large (16) | 528 × 468, corner Large (16) |
-| Column (touch target) | 52 × 320, corner Full | 72 × 444, corner Full |
-| Cell | 52 × 52 | 72 × 72 |
-| Coin | 44 × 44, 3 dp ring | 62 × 62, 3 dp ring |
+| Board | 376 × 332, 6 dp padding, corner Large (16) | 528 × 468, 12 dp padding, corner Extra-large (28) |
+| Column (touch target) | 52 × 320, 4 dp top and bottom, corner Full | 72 × 444, 6 dp top and bottom, corner Full |
+| Cell | 52 × 52, hole 44 | 72 × 72, hole 62 |
+| Coin | 44 × 44, 3 dp ring, mark 16 (circle) / 26 (star) | 62 × 62, 4 dp ring, mark 22 / 36 |
 
-A small coin (24 × 24) marks each player in the app bar and the side pane.
+A small coin (24 × 24, 2 dp ring, mark 9 / 14) marks each player in the player tags.
 
 - **Column states**: Enabled, Hovered, Focused, Pressed, Disabled. The column is the touch target, so it is at least
   48 dp wide at every size.
