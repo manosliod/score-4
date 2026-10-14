@@ -33,11 +33,11 @@ TEST_CASE("the younger player starts, the same age means Player 1", "[game]") {
     CHECK(score4::startingPlayer(0, -3) == Player::Two);
 }
 
-TEST_CASE("a colour is exactly R or Y", "[game]") {
+TEST_CASE("a colour is R or Y in either case", "[game]") {
     CHECK(score4::parseDisc("R") == Disc::Red);
     CHECK(score4::parseDisc("Y") == Disc::Yellow);
-    CHECK_FALSE(score4::parseDisc("r").has_value());
-    CHECK_FALSE(score4::parseDisc("y").has_value());
+    CHECK(score4::parseDisc("r") == Disc::Red);
+    CHECK(score4::parseDisc("y") == Disc::Yellow);
     CHECK_FALSE(score4::parseDisc("G").has_value());
     CHECK_FALSE(score4::parseDisc("").has_value());
     CHECK_FALSE(score4::parseDisc("RY").has_value());
@@ -45,6 +45,7 @@ TEST_CASE("a colour is exactly R or Y", "[game]") {
 
 TEST_CASE("the second player cannot take the first player's colour", "[game]") {
     CHECK_FALSE(score4::parseOtherDisc("R", Disc::Red).has_value());
+    CHECK_FALSE(score4::parseOtherDisc("r", Disc::Red).has_value());
     CHECK(score4::parseOtherDisc("Y", Disc::Red) == Disc::Yellow);
     CHECK_FALSE(score4::parseOtherDisc("x", Disc::Red).has_value());
 }

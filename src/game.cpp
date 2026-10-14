@@ -9,10 +9,10 @@ Player startingPlayer(int playerOneAge, int playerTwoAge) noexcept {
 }
 
 std::optional<Disc> parseDisc(std::string_view text) noexcept {
-    if (text == "R") {
+    if (text == "R" || text == "r") {
         return Disc::Red;
     }
-    if (text == "Y") {
+    if (text == "Y" || text == "y") {
         return Disc::Yellow;
     }
     return std::nullopt;

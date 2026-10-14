@@ -11,7 +11,7 @@ to the lowest empty spot in it.
 
 1. Each player types their age. Anything that is not a number is asked again.
 2. **The younger player starts.** If both are the same age, Player 1 starts.
-3. The player who starts picks a colour: Red (`R`) or Yellow (`Y`).
+3. The player who starts picks a colour: Red (`R` or `r`) or Yellow (`Y` or `y`).
 4. The other player picks the other colour. Both players can never have the same colour.
 
 ## A turn

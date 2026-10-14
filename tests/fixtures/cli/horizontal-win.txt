@@ -24,9 +24,9 @@ Type 'R' for Red color, 'Y' for Yellow color coin:
 Player 1.
 Type 'R' for Red color, 'Y' for Yellow color coin: Score 4
 
-Player 1 Color: Red
+Player 1 Color: Yellow
 
-Player 2 Color: Yellow
+Player 2 Color: Red
 
 1 2 3 4 5 6 7 
 _|_|_|_|_|_|_|
@@ -39,106 +39,106 @@ _|_|_|_|_|_|_|
 Player 2
 Pick the column you want to drop your coin (Between 1-7): Score 4
 
-Player 1 Color: Red
+Player 1 Color: Yellow
 
-Player 2 Color: Yellow
-
-1 2 3 4 5 6 7 
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-Y|_|_|_|_|_|_|
-
-Player 1
-Pick the column you want to drop your coin (Between 1-7): Score 4
-
-Player 1 Color: Red
-
-Player 2 Color: Yellow
+Player 2 Color: Red
 
 1 2 3 4 5 6 7 
+_|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 R|_|_|_|_|_|_|
+
+Player 1
+Pick the column you want to drop your coin (Between 1-7): Score 4
+
+Player 1 Color: Yellow
+
+Player 2 Color: Red
+
+1 2 3 4 5 6 7 
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
 Y|_|_|_|_|_|_|
-
-Player 2
-Pick the column you want to drop your coin (Between 1-7): Score 4
-
-Player 1 Color: Red
-
-Player 2 Color: Yellow
-
-1 2 3 4 5 6 7 
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
 R|_|_|_|_|_|_|
-Y|Y|_|_|_|_|_|
-
-Player 1
-Pick the column you want to drop your coin (Between 1-7): Score 4
-
-Player 1 Color: Red
-
-Player 2 Color: Yellow
-
-1 2 3 4 5 6 7 
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-_|_|_|_|_|_|_|
-R|R|_|_|_|_|_|
-Y|Y|_|_|_|_|_|
 
 Player 2
 Pick the column you want to drop your coin (Between 1-7): Score 4
 
-Player 1 Color: Red
+Player 1 Color: Yellow
 
-Player 2 Color: Yellow
+Player 2 Color: Red
 
 1 2 3 4 5 6 7 
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
+Y|_|_|_|_|_|_|
 R|R|_|_|_|_|_|
-Y|Y|Y|_|_|_|_|
 
 Player 1
 Pick the column you want to drop your coin (Between 1-7): Score 4
 
-Player 1 Color: Red
+Player 1 Color: Yellow
 
-Player 2 Color: Yellow
+Player 2 Color: Red
 
 1 2 3 4 5 6 7 
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
-R|R|R|_|_|_|_|
-Y|Y|Y|_|_|_|_|
+Y|Y|_|_|_|_|_|
+R|R|_|_|_|_|_|
 
 Player 2
 Pick the column you want to drop your coin (Between 1-7): Score 4
 
-Player 1 Color: Red
+Player 1 Color: Yellow
 
-Player 2 Color: Yellow
+Player 2 Color: Red
 
 1 2 3 4 5 6 7 
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
 _|_|_|_|_|_|_|
+Y|Y|_|_|_|_|_|
 R|R|R|_|_|_|_|
-Y|Y|Y|Y|_|_|_|
+
+Player 1
+Pick the column you want to drop your coin (Between 1-7): Score 4
+
+Player 1 Color: Yellow
+
+Player 2 Color: Red
+
+1 2 3 4 5 6 7 
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+Y|Y|Y|_|_|_|_|
+R|R|R|_|_|_|_|
+
+Player 2
+Pick the column you want to drop your coin (Between 1-7): Score 4
+
+Player 1 Color: Yellow
+
+Player 2 Color: Red
+
+1 2 3 4 5 6 7 
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+_|_|_|_|_|_|_|
+Y|Y|Y|_|_|_|_|
+R|R|R|R|_|_|_|
 
 Player 2, Wins!
