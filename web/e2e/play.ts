@@ -18,7 +18,7 @@ export function column(page: Page, number: number) {
 	return page.getByRole('gridcell', { name: new RegExp(`^Column ${String(number)},`) })
 }
 
-export async function dropAll(page: Page, columns: number[]) {
+export async function dropAll(page: Page, columns: readonly number[]) {
 	for (const number of columns) {
 		await column(page, number).click({ force: true })
 	}

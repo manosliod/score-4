@@ -1,11 +1,8 @@
 import { expect, test } from '@playwright/test'
 
-import { column, dropAll, startGame } from './play'
+import { tieMoves } from '../src/testing/factories'
 
-const tieMoves = [
-	1, 2, 1, 2, 1, 1, 3, 1, 3, 1, 4, 2, 2, 2, 7, 2, 7, 4, 4, 4, 4, 3, 4, 5, 5, 3, 5, 3, 3, 5, 5, 6, 5, 7, 6, 6, 7, 7, 6,
-	7, 6, 6
-]
+import { column, dropAll, enterAges, startGame } from './play'
 
 test('a tap drops a coin and passes the turn', async ({ page }) => {
 	await startGame(page)
@@ -27,10 +24,7 @@ test('four in a row wins and Play again keeps the players', async ({ page }) => 
 })
 
 test('a full board with no line is a tie, and New players goes back to the start', async ({ page }) => {
-	await page.goto('/')
-	await page.getByLabel('Player 1 age').fill('20')
-	await page.getByLabel('Player 2 age').fill('30')
-	await page.getByRole('button', { name: 'Continue' }).click()
+	await enterAges(page, '20', '30')
 	await page.getByRole('button', { name: 'Start game' }).click()
 	await dropAll(page, tieMoves)
 	await expect(page.getByRole('heading', { name: 'It’s a tie' })).toBeVisible()
@@ -83,4 +77,15 @@ test('an engine that fails to load shows the error, and Try again recovers', asy
 	await page.getByRole('button', { name: 'Try again' }).click()
 	await page.getByRole('button', { name: 'Continue' }).click()
 	await expect(page.getByRole('heading', { name: 'Player 2 goes first' })).toBeVisible()
+})
+
+test('a game screen that fails to download shows the error, and Try again recovers', async ({ page }) => {
+	let failing = true
+	await page.route('**/game-round-*.js', (route) => (failing ? route.abort() : route.continue()))
+	await enterAges(page, '30', '20')
+	await page.getByRole('button', { name: 'Start game' }).click()
+	await expect(page.getByText('The game couldn’t start')).toBeVisible()
+	failing = false
+	await page.getByRole('button', { name: 'Try again' }).click()
+	await expect(page.getByRole('heading', { name: 'Player 2’s turn' })).toBeVisible()
 })

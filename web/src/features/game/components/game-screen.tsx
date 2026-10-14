@@ -2,16 +2,28 @@ import { Suspense, use, useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { AppBar } from '@/forest/components/app-bar'
-import { Dialog } from '@/forest/components/dialog'
 import { IconButton } from '@/forest/components/icon-button'
 import { engineService } from '@/shared/services/engine-service'
+import { loadOnce } from '@/shared/services/load-once'
 import type { MatchSetup } from '@/shared/types/game'
-
-import { GameStoreProvider } from '../stores/game-store-provider'
 
 import { EngineError } from './engine-error'
 import { GameLoading } from './game-loading'
-import { GameView } from './game-view'
+
+const gameRound = loadOnce(() => import('./game-round'))
+const newGameDialog = loadOnce(() => import('./new-game-dialog'))
+
+const retryAll = () => {
+	engineService.retry()
+	gameRound.retry()
+	newGameDialog.retry()
+}
+
+export const preloadGame = () => {
+	retryAll()
+	gameRound.load().catch(() => null)
+	newGameDialog.load().catch(() => null)
+}
 
 type GameScreenProps = { setup: MatchSetup | null; onBack: () => void; onNewPlayers: () => void }
 
@@ -39,6 +51,7 @@ export function GameScreen({ setup, onBack, onNewPlayers }: GameScreenProps) {
 			/>
 			{setup ? (
 				<ErrorBoundary
+					onReset={retryAll}
 					fallbackRender={({ resetErrorBoundary }) => <EngineError onRetry={resetErrorBoundary} />}
 				>
 					<Suspense fallback={<GameLoading setup={setup} />}>
@@ -48,14 +61,11 @@ export function GameScreen({ setup, onBack, onNewPlayers }: GameScreenProps) {
 			) : (
 				<EngineError onRetry={onBack} />
 			)}
-			<Dialog
-				open={confirming}
-				onOpenChange={setConfirming}
-				title="Start a new game?"
-				description="The board will be cleared. Players and colours stay the same."
-				confirm="New game"
-				onConfirm={nextRound}
-			/>
+			<ErrorBoundary fallback={null}>
+				<Suspense>
+					<LazyNewGameDialog open={confirming} onOpenChange={setConfirming} onConfirm={nextRound} />
+				</Suspense>
+			</ErrorBoundary>
 		</div>
 	)
 }
@@ -63,10 +73,15 @@ export function GameScreen({ setup, onBack, onNewPlayers }: GameScreenProps) {
 type LoadedGameProps = { setup: MatchSetup; onPlayAgain: () => void; onNewPlayers: () => void }
 
 function LoadedGame({ setup, onPlayAgain, onNewPlayers }: LoadedGameProps) {
+	const round = gameRound.load()
 	const engine = use(engineService.load())
-	return (
-		<GameStoreProvider engine={engine} setup={setup}>
-			<GameView onPlayAgain={onPlayAgain} onNewPlayers={onNewPlayers} />
-		</GameStoreProvider>
-	)
+	const { GameRound } = use(round)
+	return <GameRound engine={engine} setup={setup} onPlayAgain={onPlayAgain} onNewPlayers={onNewPlayers} />
+}
+
+type LazyNewGameDialogProps = { open: boolean; onOpenChange: (open: boolean) => void; onConfirm: () => void }
+
+function LazyNewGameDialog(props: LazyNewGameDialogProps) {
+	const { NewGameDialog } = use(newGameDialog.load())
+	return <NewGameDialog {...props} />
 }
