@@ -34,6 +34,9 @@ Disc Game::discOf(Player player) const noexcept { return player == Player::One ?
 Player Game::ownerOf(Disc disc) const noexcept { return disc == playerOneDisc_ ? Player::One : Player::Two; }
 
 std::expected<Outcome, MoveError> Game::drop(int columnNumber) noexcept {
+    if (over_) {
+        return std::unexpected(MoveError::GameOver);
+    }
     if (columnNumber < firstColumnNumber || columnNumber > lastColumnNumber) {
         return std::unexpected(MoveError::ColumnOutOfRange);
     }
@@ -45,9 +48,11 @@ std::expected<Outcome, MoveError> Game::drop(int columnNumber) noexcept {
     board_.place({.row = *row, .column = column}, discOf(turn_));
     turn_ = otherPlayer(turn_);
     if (const auto line = findLine(board_)) {
+        over_ = true;
         return Won{.winner = ownerOf(line->disc), .line = line->cells};
     }
     if (board_.isFull()) {
+        over_ = true;
         return Tie{};
     }
     return InProgress{};

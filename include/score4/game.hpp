@@ -25,7 +25,7 @@ struct Tie {};
 
 using Outcome = std::variant<InProgress, Won, Tie>;
 
-enum class MoveError : std::uint8_t { ColumnOutOfRange, ColumnFull };
+enum class MoveError : std::uint8_t { ColumnOutOfRange, ColumnFull, GameOver };
 
 inline constexpr int firstColumnNumber = 1;
 inline constexpr int lastColumnNumber = columnCount;
@@ -57,6 +57,7 @@ class Game {
     Disc playerOneDisc_;
     Disc playerTwoDisc_;
     Player turn_;
+    bool over_ = false;
 };
 
 }

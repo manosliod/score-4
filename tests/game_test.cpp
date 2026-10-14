@@ -98,3 +98,19 @@ TEST_CASE("a full column is refused and the turn stays", "[game]") {
     CHECK(game.board().at({0, 0}) == Cell::Red);
     CHECK(game.turn() == Player::Two);
 }
+
+TEST_CASE("no move is taken after a win or a tie", "[game]") {
+    Game won(Disc::Red, Disc::Yellow, Player::One);
+    static_cast<void>(playAll(won, {1, 2, 1, 2, 1, 2, 1}));
+    const auto afterWin = won.drop(3);
+    REQUIRE_FALSE(afterWin.has_value());
+    CHECK(afterWin.error() == MoveError::GameOver);
+    CHECK(won.board().at({5, 2}) == Cell::Empty);
+
+    Game tied(Disc::Red, Disc::Yellow, Player::One);
+    static_cast<void>(playAll(tied, {1, 2, 1, 2, 1, 1, 3, 1, 3, 1, 4, 2, 2, 2, 7, 2, 7, 4, 4, 4, 4,
+                                     3, 4, 5, 5, 3, 5, 3, 3, 5, 5, 6, 5, 7, 6, 6, 7, 7, 6, 7, 6, 6}));
+    const auto afterTie = tied.drop(1);
+    REQUIRE_FALSE(afterTie.has_value());
+    CHECK(afterTie.error() == MoveError::GameOver);
+}
