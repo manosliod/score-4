@@ -2,6 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include <array>
 #include <initializer_list>
 #include <variant>
 
@@ -75,6 +76,8 @@ TEST_CASE("the winner is the player who owns the winning colour", "[game]") {
     const auto outcome = playAll(game, {1, 2, 1, 2, 1, 2, 1});
     REQUIRE(std::holds_alternative<score4::Won>(outcome));
     CHECK(std::get<score4::Won>(outcome).winner == Player::Two);
+    CHECK(std::get<score4::Won>(outcome).line ==
+          std::array<score4::Position, score4::lineLength>{{{5, 0}, {4, 0}, {3, 0}, {2, 0}}});
 }
 
 TEST_CASE("a full board with no line is a tie", "[game]") {

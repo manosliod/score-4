@@ -17,6 +17,8 @@ enum class Cell : std::uint8_t { Empty, Red, Yellow };
 struct Position {
     int row;
     int column;
+
+    friend constexpr bool operator==(Position, Position) noexcept = default;
 };
 
 [[nodiscard]] constexpr bool isOnBoard(Position position) noexcept {

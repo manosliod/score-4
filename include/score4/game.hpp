@@ -1,7 +1,9 @@
 #pragma once
 
 #include "score4/board.hpp"
+#include "score4/rules.hpp"
 
+#include <array>
 #include <cstdint>
 #include <expected>
 #include <optional>
@@ -16,6 +18,7 @@ struct InProgress {};
 
 struct Won {
     Player winner;
+    std::array<Position, lineLength> line;
 };
 
 struct Tie {};

@@ -3,6 +3,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+#include <array>
 #include <initializer_list>
 #include <optional>
 
@@ -19,6 +20,11 @@ Board boardWith(Disc disc, std::initializer_list<Position> positions) {
         board.place(position, disc);
     }
     return board;
+}
+
+std::optional<Disc> lineColour(const Board &board) {
+    const auto line = score4::findLine(board);
+    return line ? std::optional{line->disc} : std::nullopt;
 }
 
 }
@@ -54,7 +60,7 @@ TEST_CASE("four across wins in every row", "[rules]") {
             CAPTURE(row, column);
             const auto board =
                 boardWith(Disc::Yellow, {{row, column}, {row, column + 1}, {row, column + 2}, {row, column + 3}});
-            CHECK(score4::findLine(board) == Disc::Yellow);
+            CHECK(lineColour(board) == Disc::Yellow);
         }
     }
 }
@@ -65,7 +71,7 @@ TEST_CASE("four up and down wins in every column", "[rules]") {
             CAPTURE(column, top);
             const auto board =
                 boardWith(Disc::Red, {{top, column}, {top + 1, column}, {top + 2, column}, {top + 3, column}});
-            CHECK(score4::findLine(board) == Disc::Red);
+            CHECK(lineColour(board) == Disc::Red);
         }
     }
 }
@@ -76,7 +82,7 @@ TEST_CASE("four on a diagonal going down to the right wins", "[rules]") {
             CAPTURE(row, column);
             const auto board = boardWith(
                 Disc::Yellow, {{row, column}, {row + 1, column + 1}, {row + 2, column + 2}, {row + 3, column + 3}});
-            CHECK(score4::findLine(board) == Disc::Yellow);
+            CHECK(lineColour(board) == Disc::Yellow);
         }
     }
 }
@@ -87,9 +93,14 @@ TEST_CASE("four on a diagonal going up to the right wins", "[rules]") {
             CAPTURE(row, column);
             const auto board = boardWith(
                 Disc::Red, {{row, column}, {row - 1, column + 1}, {row - 2, column + 2}, {row - 3, column + 3}});
-            CHECK(score4::findLine(board) == Disc::Red);
+            CHECK(lineColour(board) == Disc::Red);
         }
     }
+}
+
+TEST_CASE("a line names its colour and its four cells", "[rules]") {
+    CHECK(score4::findLine(boardWith(Disc::Red, {{5, 1}, {4, 2}, {3, 3}, {2, 4}})) ==
+          score4::Line{Disc::Red, {{{5, 1}, {4, 2}, {3, 3}, {2, 4}}}});
 }
 
 TEST_CASE("a broken line on either diagonal is not a win", "[rules]") {

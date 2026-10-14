@@ -44,8 +44,8 @@ std::expected<Outcome, MoveError> Game::drop(int columnNumber) noexcept {
     }
     board_.place({.row = *row, .column = column}, discOf(turn_));
     turn_ = otherPlayer(turn_);
-    if (const auto disc = findLine(board_)) {
-        return Won{ownerOf(*disc)};
+    if (const auto line = findLine(board_)) {
+        return Won{.winner = ownerOf(line->disc), .line = line->cells};
     }
     if (board_.isFull()) {
         return Tie{};

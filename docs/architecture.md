@@ -18,7 +18,7 @@ Nothing in the core knows a front end exists.
 | Part | Files | What it does |
 | --- | --- | --- |
 | Board | `include/score4/board.hpp`, `src/board.cpp` | Holds the 6 × 7 grid. Each spot is empty, red or yellow. Spots outside the grid read as empty. |
-| Rules | `include/score4/rules.hpp`, `src/rules.cpp` | `landingRow` says where a coin dropped into a column ends up. `findLine` says which colour, if any, has four in a line. |
+| Rules | `include/score4/rules.hpp`, `src/rules.cpp` | `landingRow` says where a coin dropped into a column ends up. `findLine` says which colour, if any, has four in a line, and which four spots make that line. |
 | Game | `include/score4/game.hpp`, `src/game.cpp` | One game from the first move to the end: whose turn it is, each player's colour, and the result of each move (still playing, a win, or a tie). Also the setup rules: who starts, and which colours are allowed. |
 | Console | `apps/cli/` | Asks for ages, colours and columns, draws the board as text, and prints the result. It only calls the game. |
 
@@ -30,7 +30,7 @@ Nothing in the core knows a front end exists.
 | `parseDisc("R")` | Red, Yellow, or nothing if the text is not exactly `R` or `Y`. |
 | `parseOtherDisc(text, taken)` | Like `parseDisc`, but also nothing if the colour is already taken. |
 | `Game(discOne, discTwo, starter)` | A new game with an empty board. |
-| `game.drop(column)` | For a column from 1 to 7: the outcome after the move (`InProgress`, `Won{player}` or `Tie`). For any other number: the error `ColumnOutOfRange`, and nothing changes. |
+| `game.drop(column)` | For a column from 1 to 7: the outcome after the move (`InProgress`, `Won{player, line}` or `Tie`). `line` is the four spots of the winning line, so a screen can mark them. For any other number: the error `ColumnOutOfRange`; for a full column: `ColumnFull`. In both cases nothing changes. |
 | `game.board()`, `game.turn()`, `game.discOf(player)` | The current board, whose turn it is, and a player's colour. |
 
 ## Tests
