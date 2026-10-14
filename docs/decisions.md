@@ -39,3 +39,14 @@ a fix. The console flows in `tests/fixtures/cli/` show the output stayed the sam
 **Why:** that list has four Red coins on a diagonal going up to the right after move 29. The 2019 program never
 checked that kind of diagonal, so it played on to a full board and printed `Tie.`. With the full win check, the same
 moves end in a win for Player 1. The new list fills the board with no four in a line anywhere.
+
+## The screen is cleared with an ANSI code, and only on a terminal
+
+**Chose:** `ESC[2J ESC[H` (clear, then cursor to the top left), written only when standard output is a terminal
+(`isatty`).
+
+**Instead of:** `system("cls")`, which only works on Windows and starts a shell for every move.
+
+**Why:** the code works in every terminal on Linux and macOS, and in Windows Terminal. Skipping it when the output is
+a file keeps recorded runs readable and lets the tests compare them as plain text. `isatty` comes from POSIX, so the
+console program builds on Linux and macOS; the web demo does not use it.

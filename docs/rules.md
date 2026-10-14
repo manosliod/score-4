@@ -31,3 +31,9 @@ to the lowest empty spot in it.
 
 If the input ends before the game does (for example `Ctrl+D`, or a file of moves that stops early), the program
 stops quietly instead of asking forever.
+
+## The screen
+
+After every move the program clears the terminal and draws the board again. It only does this when it writes to a
+terminal. When its output goes to a file or another program, nothing is cleared, so the output can be read and
+compared as plain text.
