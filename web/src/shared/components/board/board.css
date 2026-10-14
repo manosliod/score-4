@@ -1,0 +1,135 @@
+.board {
+	--cell: min(var(--spacing-cell), calc((100cqw - 2 * var(--spacing-board-padding)) / 7));
+	--coin: calc(var(--cell) - var(--spacing-hole-gap));
+	padding: var(--spacing-board-padding);
+	border-radius: var(--radius-large);
+}
+
+.board-column {
+	padding-block: var(--spacing-column-padding);
+}
+
+.board-cell {
+	width: var(--cell);
+	height: var(--cell);
+}
+
+.board-hole {
+	width: var(--coin);
+	height: var(--coin);
+}
+
+.board.always-compact {
+	--cell: var(--spacing-cell);
+}
+
+@media (width >= 600px) {
+	.board:not(.always-compact) {
+		--cell: min(
+			var(--spacing-cell-expanded),
+			calc((100cqw - 2 * var(--spacing-pane-padding) - 2 * var(--spacing-board-padding-expanded)) / 7),
+			calc(
+				(
+						100cqh - 2 * var(--spacing-pane-padding) - 2 * var(--spacing-board-padding-expanded) - 2 *
+							var(--spacing-column-padding-expanded)
+					) /
+					6
+			)
+		);
+		--coin: calc(var(--cell) - var(--spacing-hole-gap-expanded));
+		padding: var(--spacing-board-padding-expanded);
+		border-radius: var(--radius-extra-large);
+	}
+
+	.board:not(.always-compact) .board-column {
+		padding-block: var(--spacing-column-padding-expanded);
+	}
+}
+
+.coin.coin-board {
+	width: var(--coin);
+	height: var(--coin);
+	border-width: 3px;
+}
+
+.coin.coin-small {
+	width: var(--spacing-coin-small);
+	height: var(--spacing-coin-small);
+	border-width: 2px;
+}
+
+.coin-mark {
+	mask: var(--mark) center / contain no-repeat;
+}
+
+.red.coin-board .coin-mark {
+	--mark: url('../../assets/marks/circle.svg');
+	width: var(--spacing-mark-circle);
+	height: var(--spacing-mark-circle);
+}
+
+.yellow.coin-board .coin-mark {
+	--mark: url('../../assets/marks/star.svg');
+	width: var(--spacing-mark-star);
+	height: var(--spacing-mark-star);
+}
+
+.red.coin-small .coin-mark {
+	--mark: url('../../assets/marks/circle-small.svg');
+	width: var(--spacing-mark-circle-small);
+	height: var(--spacing-mark-circle-small);
+}
+
+.yellow.coin-small .coin-mark {
+	--mark: url('../../assets/marks/star-small.svg');
+	width: var(--spacing-mark-star-small);
+	height: var(--spacing-mark-star-small);
+}
+
+@media (width >= 600px) {
+	.board:not(.always-compact) .coin.coin-board {
+		border-width: 4px;
+	}
+
+	.board:not(.always-compact) .red.coin-board .coin-mark {
+		--mark: url('../../assets/marks/circle-expanded.svg');
+		width: var(--spacing-mark-circle-expanded);
+		height: var(--spacing-mark-circle-expanded);
+	}
+
+	.board:not(.always-compact) .yellow.coin-board .coin-mark {
+		--mark: url('../../assets/marks/star-expanded.svg');
+		width: var(--spacing-mark-star-expanded);
+		height: var(--spacing-mark-star-expanded);
+	}
+}
+
+.win-ring {
+	border-width: var(--spacing-win-ring);
+	animation: win-ring-in var(--motion-duration-medium2) var(--ease-emphasized-decelerate) both;
+}
+
+.dropped {
+	animation: coin-drop calc(var(--motion-duration-short3) + var(--drop-rows) * var(--motion-duration-short1))
+		var(--ease-emphasized) both;
+}
+
+@keyframes coin-drop {
+	from {
+		transform: translateY(calc(-1 * var(--drop-rows) * var(--cell)));
+	}
+}
+
+@keyframes win-ring-in {
+	from {
+		opacity: 0;
+		scale: 1.2;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.dropped,
+	.win-ring {
+		animation: none;
+	}
+}
