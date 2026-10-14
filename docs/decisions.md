@@ -36,6 +36,6 @@ a fix. The fixes come next, each with its own test.
 
 **Instead of:** keeping the 2019 move list.
 
-**Why:** that list has four Red coins on a diagonal going up to the right after move 22. The 2019 program never
+**Why:** that list has four Red coins on a diagonal going up to the right after move 29. The 2019 program never
 checked that kind of diagonal, so it played on to a full board and printed `Tie.`. With the full win check, the same
 moves end in a win for Player 1. The new list fills the board with no four in a line anywhere.
