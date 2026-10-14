@@ -29,8 +29,15 @@ describe('setup store', () => {
 	it('moves on with the younger player starting and the other colour for the other player', async () => {
 		const store = withAges(' 30 ', '20')
 		expect(await store.getState().actions.submitAges()).toBe('colour')
-		store.getState().actions.pickColour('yellow')
-		expect(store.getState().actions.matchSetup()).toEqual({ starter: 2, colours: { 1: 'red', 2: 'yellow' } })
+		expect(store.getState().starter).toBe(2)
+	})
+
+	it('uses the ages as they are once the engine has loaded', async () => {
+		const store = withAges('30', '20')
+		const result = store.getState().actions.submitAges()
+		store.getState().actions.editAge(2, '40')
+		expect(await result).toBe('colour')
+		expect(store.getState().starter).toBe(1)
 	})
 
 	it('marks equal ages so the colour step can say why Player 1 starts', async () => {

@@ -24,7 +24,7 @@ export function ColourForm({ onStart }: { onStart: (setup: MatchSetup) => void }
 	const sameAge = useSameAge()
 	const colour = useStarterColour()
 	const preview = usePreviewSetup()
-	const { pickColour, changeAges, matchSetup } = useSetupActions()
+	const { pickColour, changeAges } = useSetupActions()
 	const starterName = playerName(starter)
 	const reason = sameAge ? 'You’re the same age, so Player 1 starts.' : `${starterName} is younger, so they start.`
 
@@ -44,7 +44,7 @@ export function ColourForm({ onStart }: { onStart: (setup: MatchSetup) => void }
 			<div className="flex flex-wrap gap-2">
 				<Button
 					onClick={() => {
-						onStart(matchSetup())
+						onStart(preview)
 					}}
 				>
 					Start game
