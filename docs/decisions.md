@@ -80,6 +80,25 @@ collected.
 **Why:** there are no effects, and React may create a store twice in development. A match is a few dozen bytes, so
 freeing it "some time later" costs nothing.
 
+## A failed download stays failed until the player asks again
+
+**Chose:** when the engine or a piece of the game screen fails to download, the failure is kept. Only Continue,
+Try again or the preload on Continue start a new download.
+
+**Instead of:** forgetting the failure at once so the next call downloads again.
+
+**Why:** React draws a waiting screen again when a download finishes. If the failure were forgotten, that redraw
+would start a new download instead of showing the error, and the player would wait for ever on "Getting ready".
+
+## The game refuses moves once it is over
+
+**Chose:** after a win or a tie, the game core answers every move with `GameOver` and changes nothing.
+
+**Instead of:** leaving it to each front end to stop asking.
+
+**Why:** the rules belong in the core. The 2019 program ended at the first win; now the core itself makes sure of
+that, for the console, the web and anything else that uses it.
+
 ## A tap on a full column is still sent to the game
 
 **Chose:** a full column is marked disabled for screen readers and skipped by the arrow keys, but a tap on it still

@@ -74,8 +74,8 @@ UI for the dialog, radio group and snackbar. There is no `useEffect` anywhere: t
 
 - **It plays.** Every 2019 bug is fixed: all four directions count, the top row counts, a full column is refused with
   a clear message, bad input is asked again, and the screen clears on every terminal.
-- **It is tested.** 23 C++ tests (rules, game and the recorded console flows), 18 component and store tests, and 24
-  browser tests that play whole games at both Figma widths.
+- **It is tested.** 24 C++ tests (rules, game and the recorded console flows), 22 component, store and service tests, and
+  26 browser tests that play whole games at both Figma widths.
 - **It is checked on every push.** CI runs the format check, clang-tidy, the sanitizer and release builds, the
   WebAssembly build, ESLint, the type check, the tests, a bundle-size budget and a check that no comment written for
   people slips into the code.

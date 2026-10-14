@@ -31,7 +31,7 @@ Nothing in the core knows a front end exists.
 | `parseDisc("R")` | Red, Yellow, or nothing if the text is not exactly `R` or `Y`. |
 | `parseOtherDisc(text, taken)` | Like `parseDisc`, but also nothing if the colour is already taken. |
 | `Game(discOne, discTwo, starter)` | A new game with an empty board. |
-| `game.drop(column)` | For a column from 1 to 7: the outcome after the move (`InProgress`, `Won{player, line}` or `Tie`). `line` is the four spots of the winning line, so a screen can mark them. For any other number: the error `ColumnOutOfRange`; for a full column: `ColumnFull`. In both cases nothing changes. |
+| `game.drop(column)` | For a column from 1 to 7: the outcome after the move (`InProgress`, `Won{player, line}` or `Tie`). `line` is the four spots of the winning line, so a screen can mark them. For any other number: the error `ColumnOutOfRange`; for a full column: `ColumnFull`; after a win or a tie: `GameOver`. In each case nothing changes. |
 | `game.board()`, `game.turn()`, `game.discOf(player)` | The current board, whose turn it is, and a player's colour. |
 
 ## Tests
@@ -59,8 +59,8 @@ flowchart LR
 
 | Part | Folder | What it does |
 | --- | --- | --- |
-| Engine binding | `web/engine/bindings.cpp` | Gives the game core to JavaScript: start a match, drop a coin, read the board, the winner and the winning line. |
-| Engine service | `web/src/shared/services/engine-service.ts` | The only code that loads and calls the WebAssembly engine. It loads it once, tries again after a failure, and turns its values into plain TypeScript types. |
+| Engine binding | `web/engine/bindings.cpp` | Gives the game core to JavaScript: start a match, drop a coin, read a column, the winner and the winning line. |
+| Engine service | `web/src/shared/services/engine-service.ts` | The only code that loads and calls the WebAssembly engine. It loads it once and checks every value the engine gives back (with Zod) before turning it into a plain TypeScript type. After a failed load it keeps the error until the player asks to try again. |
 | Setup | `web/src/features/setup/` | Asks for both ages, asks the engine who starts, and lets that player pick a colour. |
 | Game | `web/src/features/game/` | One game: the board, whose turn it is, the result, the full-column message, Play again and New game. |
 | Forest | `web/src/forest/` | The Material 3 parts (buttons, text field, dialog, snackbar, app bar). They know nothing about Score 4, so they can move to a shared package later. |
@@ -75,8 +75,10 @@ How the screens fit together:
   game always starts clean and every test gets a fresh one.
 - **Going back keeps the setup.** The setup screen is hidden, not removed, while a game is on, so Back returns to the
   same colour choice.
-- **Loading and errors have their own screens.** While the engine loads, the game shows "Getting ready". If it fails,
-  it shows "The game couldn’t start" with Try again.
+- **Loading and errors have their own screens.** While the engine or the game screen's code loads, the game shows
+  "Getting ready". If either fails, it shows "The game couldn’t start" with Try again.
+- **The board and the new game dialog download when needed.** They are split from the first download and fetched
+  as soon as the player presses Continue, so they are usually ready before Start game.
 - **No effects.** Nothing in the web app runs "after render". Everything happens in response to something the player
   did, or while the screen is drawn.
 
