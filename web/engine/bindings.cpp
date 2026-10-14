@@ -4,6 +4,7 @@
 #include <emscripten/bind.h>
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <variant>
@@ -16,8 +17,9 @@ using score4::Game;
 using score4::Player;
 using score4::Position;
 using WinningLine = std::array<Position, score4::lineLength>;
+using ColumnCells = std::array<Cell, score4::rowCount>;
 
-enum class MoveResult : std::uint8_t { Playing, Won, Tie, ColumnFull, ColumnOutOfRange };
+enum class MoveResult : std::uint8_t { Playing, Won, Tie, ColumnFull, ColumnOutOfRange, GameOver };
 
 class Match {
   public:
@@ -26,6 +28,9 @@ class Match {
     MoveResult drop(int columnNumber) {
         const auto result = game_.drop(columnNumber);
         if (!result) {
+            if (result.error() == score4::MoveError::GameOver) {
+                return MoveResult::GameOver;
+            }
             return result.error() == score4::MoveError::ColumnFull ? MoveResult::ColumnFull
                                                                    : MoveResult::ColumnOutOfRange;
         }
@@ -37,7 +42,13 @@ class Match {
         return std::holds_alternative<score4::Tie>(*result) ? MoveResult::Tie : MoveResult::Playing;
     }
 
-    [[nodiscard]] Cell cellAt(int row, int column) const { return game_.board().at({.row = row, .column = column}); }
+    [[nodiscard]] ColumnCells column(int column) const {
+        ColumnCells cells{};
+        for (int row = 0; row < score4::rowCount; ++row) {
+            cells.at(static_cast<std::size_t>(row)) = game_.board().at({.row = row, .column = column});
+        }
+        return cells;
+    }
     [[nodiscard]] Player turn() const { return game_.turn(); }
     [[nodiscard]] Disc discOf(Player player) const { return game_.discOf(player); }
     [[nodiscard]] std::optional<Player> winner() const { return winner_; }
@@ -65,7 +76,8 @@ EMSCRIPTEN_BINDINGS(score4) {
         .value("Won", MoveResult::Won)
         .value("Tie", MoveResult::Tie)
         .value("ColumnFull", MoveResult::ColumnFull)
-        .value("ColumnOutOfRange", MoveResult::ColumnOutOfRange);
+        .value("ColumnOutOfRange", MoveResult::ColumnOutOfRange)
+        .value("GameOver", MoveResult::GameOver);
 
     em::value_object<Position>("Position").field("row", &Position::row).field("column", &Position::column);
     em::value_array<WinningLine>("WinningLine")
@@ -73,6 +85,13 @@ EMSCRIPTEN_BINDINGS(score4) {
         .element(em::index<1>())
         .element(em::index<2>())
         .element(em::index<3>());
+    em::value_array<ColumnCells>("ColumnCells")
+        .element(em::index<0>())
+        .element(em::index<1>())
+        .element(em::index<2>())
+        .element(em::index<3>())
+        .element(em::index<4>())
+        .element(em::index<5>());
     em::register_optional<Player>();
     em::register_optional<WinningLine>();
 
@@ -81,7 +100,7 @@ EMSCRIPTEN_BINDINGS(score4) {
     em::class_<Match>("Match")
         .constructor<Disc, Disc, Player>()
         .function("drop", &Match::drop)
-        .function("cellAt", &Match::cellAt)
+        .function("column", &Match::column)
         .function("turn", &Match::turn)
         .function("discOf", &Match::discOf)
         .function("winner", &Match::winner)

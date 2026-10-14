@@ -12,7 +12,7 @@ export type Column = readonly CellContent[]
 
 export type BoardPosition = Readonly<{ row: number; column: number }>
 
-export type DropResult = 'playing' | 'won' | 'tie' | 'columnFull' | 'columnOutOfRange'
+export type DropResult = 'playing' | 'won' | 'tie' | 'columnFull' | 'columnOutOfRange' | 'gameOver'
 
 export type MatchSetup = Readonly<{
 	colours: Readonly<Record<PlayerNumber, Colour>>
@@ -21,11 +21,11 @@ export type MatchSetup = Readonly<{
 
 export type EngineMatch = {
 	drop(columnNumber: number): DropResult
+	column(index: number): Column
 	columns(): readonly Column[]
 	turn(): PlayerNumber
 	winner(): PlayerNumber | null
 	winningLine(): readonly BoardPosition[]
-	dispose(): void
 }
 
 export type Engine = {

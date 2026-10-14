@@ -30,16 +30,17 @@ describe('engine service', () => {
 			{ row: 2, column: 0 }
 		])
 		expect(match.columns()[0]).toEqual([null, null, 'red', 'red', 'red', 'red'])
-		match.dispose()
+		expect(match.drop(3)).toBe('gameOver')
 	})
 
-	it('tries again after a failed load', async () => {
+	it('tries again after a failed load when asked to', async () => {
 		let attempts = 0
 		const service = createEngineService(() => {
 			attempts += 1
 			return Promise.reject(new Error('offline'))
 		})
 		await expect(service.load()).rejects.toThrow('offline')
+		service.retry()
 		await expect(service.load()).rejects.toThrow('offline')
 		expect(attempts).toBe(2)
 	})

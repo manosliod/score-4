@@ -20,15 +20,6 @@ export type GameState = Readonly<{
 	actions: Readonly<{ dropCoin: (column: number) => void }>
 }>
 
-const sameColumn = (left: Column, right: Column) =>
-	left.length === right.length && left.every((cell, row) => cell === right[row])
-
-const keepUnchanged = (previous: readonly Column[], next: readonly Column[]) =>
-	next.map((column, index) => {
-		const before = previous[index]
-		return before !== undefined && sameColumn(before, column) ? before : column
-	})
-
 export function createGameStore(engine: Engine, setup: MatchSetup) {
 	const match = engine.createMatch(setup)
 
@@ -50,7 +41,7 @@ export function createGameStore(engine: Engine, setup: MatchSetup) {
 					return
 				}
 				const result = match.drop(column)
-				if (result === 'columnOutOfRange') {
+				if (result === 'columnOutOfRange' || result === 'gameOver') {
 					return
 				}
 				if (result === 'columnFull') {
@@ -59,8 +50,9 @@ export function createGameStore(engine: Engine, setup: MatchSetup) {
 					return
 				}
 				const player = state.turn
-				const columns = keepUnchanged(state.columns, match.columns())
-				const row = columns[column - 1]?.findIndex((cell) => cell !== null) ?? 0
+				const dropped = match.column(column - 1)
+				const columns = state.columns.with(column - 1, dropped)
+				const row = dropped.findIndex((cell) => cell !== null)
 				const turn = match.turn()
 				const base = {
 					columns,
