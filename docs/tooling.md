@@ -8,7 +8,7 @@ The project builds with CMake (3.28 or newer) and Ninja. The presets live in `CM
 | --- | --- |
 | `debug` | Day-to-day work and CI tests. Turns on AddressSanitizer and UndefinedBehaviorSanitizer, so memory bugs and undefined behaviour stop the program with a report. |
 | `release` | An optimised build of the console game. |
-| `wasm` | The game core compiled to WebAssembly with Emscripten, for the web demo. Needs `EMSDK` set (see `~/.local/emsdk`). |
+| `wasm` | The game core compiled to WebAssembly with Emscripten, for the web demo. Needs `EMSDK` set (run `source ~/.local/emsdk/emsdk_env.sh`). It writes `build/wasm/engine/score4_engine.js`, `.wasm` and `.d.ts`; the web app imports them from there. |
 
 ```sh
 cmake --preset debug

@@ -19,6 +19,23 @@ add_library(score4_core src/board.cpp src/rules.cpp src/game.cpp)
 target_include_directories(score4_core PUBLIC include)
 target_link_libraries(score4_core PRIVATE score4_warnings)
 
+if(EMSCRIPTEN)
+    add_executable(score4_engine web/engine/bindings.cpp)
+    target_link_libraries(score4_engine PRIVATE score4_core score4_warnings)
+    set_target_properties(score4_engine PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/engine)
+    target_link_options(
+        score4_engine
+        PRIVATE
+        -lembind
+        -sMODULARIZE=1
+        -sEXPORT_ES6=1
+        -sEXPORT_NAME=createEngine
+        -sENVIRONMENT=web,node
+        --emit-tsd
+        score4_engine.d.ts)
+    return()
+endif()
+
 add_executable(score4 apps/cli/main.cpp apps/cli/console.cpp apps/cli/board_text.cpp)
 target_link_libraries(score4 PRIVATE score4_core score4_warnings)
 
