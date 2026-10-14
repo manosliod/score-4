@@ -31,7 +31,5 @@ to the lowest empty spot in it.
 These are the gaps between the rules above and the original program. They are kept, and tested, until the fixes in
 the next step of the refresh (see `docs/portfolio/audit.md` for the full list):
 
-- It only sees diagonals that go down to the right (`\`), never up to the right (`/`).
-- It never checks the top row for four across.
 - A coin dropped into a full column replaces the top coin.
 - Typing letters where it expects a number makes it repeat the same question forever.

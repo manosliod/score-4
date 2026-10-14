@@ -29,3 +29,13 @@ a fix. The fixes come next, each with its own test.
 **Instead of:** a simpler "Player 1 always starts" in the web version.
 
 **Why:** it is the original game's rule, and keeping one rule set means the console and the web play the same game.
+
+## The recorded tie was not a tie
+
+**Chose:** a new move list for the `tie` flow and its unit test.
+
+**Instead of:** keeping the 2019 move list.
+
+**Why:** that list has four Red coins on a diagonal going up to the right after move 22. The 2019 program never
+checked that kind of diagonal, so it played on to a full board and printed `Tie.`. With the full win check, the same
+moves end in a win for Player 1. The new list fills the board with no four in a line anywhere.

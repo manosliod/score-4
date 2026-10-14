@@ -197,5 +197,4 @@ _|_|R|Y|_|_|_|
 _|R|Y|Y|_|_|_|
 R|Y|Y|R|_|_|R|
 
-Player 2
-Pick the column you want to drop your coin (Between 1-7): 
+Player 1, Wins!

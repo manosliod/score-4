@@ -78,8 +78,8 @@ TEST_CASE("the winner is the player who owns the winning colour", "[game]") {
 
 TEST_CASE("a full board with no line is a tie", "[game]") {
     Game game(Disc::Red, Disc::Yellow, Player::One);
-    const auto outcome = playAll(game, {6, 5, 4, 5, 1, 4, 7, 7, 1, 2, 6, 1, 3, 5, 2, 7, 4, 2, 4, 2, 7,
-                                        4, 7, 3, 4, 1, 2, 1, 3, 3, 6, 6, 6, 2, 5, 5, 5, 6, 3, 3, 1, 7});
+    const auto outcome = playAll(game, {1, 2, 1, 2, 1, 1, 3, 1, 3, 1, 4, 2, 2, 2, 7, 2, 7, 4, 4, 4, 4,
+                                        3, 4, 5, 5, 3, 5, 3, 3, 5, 5, 6, 5, 7, 6, 6, 7, 7, 6, 7, 6, 6});
     CHECK(std::holds_alternative<score4::Tie>(outcome));
 }
 

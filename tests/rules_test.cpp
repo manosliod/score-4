@@ -46,8 +46,8 @@ TEST_CASE("2019 behaviour: a full column lands on the top spot again", "[rules][
     CHECK(score4::landingRow(board, 0) == 0);
 }
 
-TEST_CASE("four across wins in rows 2 to 6", "[rules]") {
-    for (int row = 1; row < score4::rowCount; ++row) {
+TEST_CASE("four across wins in every row", "[rules]") {
+    for (int row = 0; row < score4::rowCount; ++row) {
         for (int column = 0; column + score4::lineLength <= score4::columnCount; ++column) {
             CAPTURE(row, column);
             const auto board =
@@ -55,11 +55,6 @@ TEST_CASE("four across wins in rows 2 to 6", "[rules]") {
             CHECK(score4::findLine(board) == Disc::Yellow);
         }
     }
-}
-
-TEST_CASE("2019 behaviour: four across in the top row is not seen", "[rules][legacy]") {
-    const auto board = boardWith(Disc::Red, {{0, 0}, {0, 1}, {0, 2}, {0, 3}});
-    CHECK_FALSE(score4::findLine(board).has_value());
 }
 
 TEST_CASE("four up and down wins in every column", "[rules]") {
@@ -84,9 +79,20 @@ TEST_CASE("four on a diagonal going down to the right wins", "[rules]") {
     }
 }
 
-TEST_CASE("2019 behaviour: four on a diagonal going up to the right is not seen", "[rules][legacy]") {
-    const auto board = boardWith(Disc::Red, {{5, 0}, {4, 1}, {3, 2}, {2, 3}});
-    CHECK_FALSE(score4::findLine(board).has_value());
+TEST_CASE("four on a diagonal going up to the right wins", "[rules]") {
+    for (int row = score4::lineLength - 1; row < score4::rowCount; ++row) {
+        for (int column = 0; column + score4::lineLength <= score4::columnCount; ++column) {
+            CAPTURE(row, column);
+            const auto board = boardWith(
+                Disc::Red, {{row, column}, {row - 1, column + 1}, {row - 2, column + 2}, {row - 3, column + 3}});
+            CHECK(score4::findLine(board) == Disc::Red);
+        }
+    }
+}
+
+TEST_CASE("a broken line on either diagonal is not a win", "[rules]") {
+    CHECK_FALSE(score4::findLine(boardWith(Disc::Red, {{5, 0}, {4, 1}, {3, 2}, {1, 4}})).has_value());
+    CHECK_FALSE(score4::findLine(boardWith(Disc::Red, {{2, 0}, {3, 1}, {4, 2}, {5, 4}})).has_value());
 }
 
 TEST_CASE("three in a line is not a win", "[rules]") {

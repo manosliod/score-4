@@ -17,6 +17,7 @@ constexpr std::array discs{Disc::Red, Disc::Yellow};
 constexpr Step across{.rows = 0, .columns = 1};
 constexpr Step upward{.rows = -1, .columns = 0};
 constexpr Step upAndLeft{.rows = -1, .columns = -1};
+constexpr std::array diagonals{upAndLeft, Step{.rows = -1, .columns = 1}};
 
 bool isLine(const Board &board, Position start, Step step, Disc disc) noexcept {
     for (int offset = 0; offset < lineLength; ++offset) {
@@ -30,7 +31,7 @@ bool isLine(const Board &board, Position start, Step step, Disc disc) noexcept {
 }
 
 std::optional<Disc> findRowLine(const Board &board) noexcept {
-    for (int row = bottomRow; row > topRow; --row) {
+    for (int row = bottomRow; row >= topRow; --row) {
         for (int column = 0; column + lineLength <= columnCount; ++column) {
             for (const auto disc : discs) {
                 if (isLine(board, {.row = row, .column = column}, across, disc)) {
@@ -44,7 +45,7 @@ std::optional<Disc> findRowLine(const Board &board) noexcept {
 
 std::optional<Disc> findColumnLine(const Board &board) noexcept {
     for (int column = 0; column < columnCount; ++column) {
-        for (int row = bottomRow; row > topRow; --row) {
+        for (int row = bottomRow; row >= lineLength - 1; --row) {
             for (const auto disc : discs) {
                 if (isLine(board, {.row = row, .column = column}, upward, disc)) {
                     return disc;
@@ -58,9 +59,11 @@ std::optional<Disc> findColumnLine(const Board &board) noexcept {
 std::optional<Disc> findDiagonalLine(const Board &board) noexcept {
     for (const auto disc : discs) {
         for (int row = bottomRow; row >= lineLength - 1; --row) {
-            for (int column = columnCount - 1; column >= lineLength - 1; --column) {
-                if (isLine(board, {.row = row, .column = column}, upAndLeft, disc)) {
-                    return disc;
+            for (int column = 0; column < columnCount; ++column) {
+                for (const auto step : diagonals) {
+                    if (isLine(board, {.row = row, .column = column}, step, disc)) {
+                        return disc;
+                    }
                 }
             }
         }
