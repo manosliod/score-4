@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+@import '@fontsource/roboto/latin-400.css';
+@import '@fontsource/roboto/latin-500.css';
+@import './tokens.css';
+@import '../forest/forest.css';
+@import '../shared/components/board/board.css';
+
+@layer base {
+	html {
+		color-scheme: light dark;
+	}
+
+	body {
+		@apply bg-surface font-sans text-on-surface antialiased;
+		-webkit-tap-highlight-color: transparent;
+		padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+			env(safe-area-inset-left);
+	}
+
+	button,
+	[role='gridcell'] {
+		touch-action: manipulation;
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--color-secondary);
+		outline-offset: 2px;
+	}
+}
+
+@utility state-layer {
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background-color: currentColor;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity var(--motion-duration-short2) linear;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		&:hover:not(:disabled, [aria-disabled='true'])::after {
+			opacity: var(--state-hover);
+		}
+	}
+
+	&:focus-visible::after {
+		opacity: var(--state-focus);
+	}
+
+	&:active:not(:disabled, [aria-disabled='true'])::after {
+		opacity: var(--state-pressed);
+	}
+}
+
+@utility target {
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 50% auto auto 50%;
+		min-width: 100%;
+		min-height: 100%;
+		width: var(--spacing-touch);
+		height: var(--spacing-touch);
+		translate: -50% -50%;
+	}
+}
+
+@utility board-area {
+	--cell: min(var(--spacing-cell), calc((100cqw - 2 * var(--spacing-board-padding)) / 7));
+	width: calc(7 * var(--cell) + 2 * var(--spacing-board-padding));
+	height: calc(6 * var(--cell) + 2 * var(--spacing-column-padding) + 2 * var(--spacing-board-padding));
+
+	@media (width >= 600px) {
+		--cell: min(
+			var(--spacing-cell-expanded),
+			calc((100cqw - 2 * var(--spacing-pane-padding) - 2 * var(--spacing-board-padding-expanded)) / 7),
+			calc(
+				(
+						100cqh - 2 * var(--spacing-pane-padding) - 2 * var(--spacing-board-padding-expanded) - 2 *
+							var(--spacing-column-padding-expanded)
+					) /
+					6
+			)
+		);
+		width: calc(7 * var(--cell) + 2 * var(--spacing-board-padding-expanded));
+		height: calc(
+			6 * var(--cell) + 2 * var(--spacing-column-padding-expanded) + 2 * var(--spacing-board-padding-expanded)
+		);
+	}
+}
+
+@utility board-pane {
+	container-type: inline-size;
+	width: 100%;
+
+	@media (width >= 840px) {
+		container-type: size;
+		width: auto;
+	}
+}
+
+@utility result-in {
+	animation: result-fade-in var(--motion-duration-medium2) var(--ease-standard) var(--motion-duration-medium2) both;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation-delay: 0ms;
+	}
+}
+
+@keyframes result-fade-in {
+	from {
+		opacity: 0;
+	}
+}

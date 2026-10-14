@@ -15,3 +15,5 @@ compile_commands.json
 node_modules/
 dist/
 .serena/
+playwright-report/
+test-results/
