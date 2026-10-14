@@ -36,7 +36,7 @@ has no true red or yellow.
 | Inverse Surface | `#282A2F` | `#E2E2E9` |  |
 | Inverse On Surface | `#EEEDF4` | `#33343A` |  |
 | Error | `#B3261E` | `#F2B8B5` | Input errors |
-| Scrim | `#000000` at 32% | `#000000` at 32% | Behind dialogs (32% to be checked on m3.material.io before Phase 6) |
+| Scrim | `#000000` at 32% | `#000000` at 32% | Behind dialogs |
 
 ### Coins
 
