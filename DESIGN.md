@@ -42,9 +42,9 @@ has no true red or yellow.
 
 | Role | Red light | Red dark | Yellow light | Yellow dark |
 | --- | --- | --- | --- | --- |
-| Primary Container (fill) | `#FDA499` | `#73342C` |  |
-| Primary (ring) | `#914B43` | `#FFA79B` |  |
-| On Primary Container (mark) | `#73332C` | `#FFDAD5` |  |
+| Primary Container (fill) | `#FDA499` | `#73342C` | `#FFD57D` | `#6D5000` |
+| Primary (ring) | `#914B43` | `#FFA79B` | `#795A0C` | `#E9C16C` |
+| On Primary Container (mark) | `#73332C` | `#FFDAD5` | `#544522` | `#FFF7EF` |
 
 Each coin also carries a mark, so the two players never differ by colour alone: Red has a **circle**, Yellow a
 **star**.
