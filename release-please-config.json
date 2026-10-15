@@ -6,23 +6,23 @@
   "changelog-sections": [
     {
       "type": "feat",
-      "section": "Features"
+      "section": "✨ Features"
     },
     {
       "type": "fix",
-      "section": "Bug Fixes"
+      "section": "🐛 Bug Fixes"
     },
     {
       "type": "perf",
-      "section": "Performance"
+      "section": "⚡ Performance"
     },
     {
       "type": "refactor",
-      "section": "Refactoring"
+      "section": "♻️ Refactoring"
     },
     {
       "type": "revert",
-      "section": "Reverts"
+      "section": "⏪ Reverts"
     },
     {
       "type": "docs",
