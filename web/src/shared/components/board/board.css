@@ -23,7 +23,7 @@
 	--cell: var(--spacing-cell);
 }
 
-@media (width >= 600px) {
+@variant medium {
 	.board:not(.always-compact) {
 		--cell: min(
 			var(--spacing-cell-expanded),
@@ -49,13 +49,13 @@
 .coin.coin-board {
 	width: var(--coin);
 	height: var(--coin);
-	border-width: 3px;
+	border-width: var(--spacing-coin-ring);
 }
 
 .coin.coin-small {
 	width: var(--spacing-coin-small);
 	height: var(--spacing-coin-small);
-	border-width: 2px;
+	border-width: var(--spacing-coin-ring-small);
 }
 
 .coin-mark {
@@ -86,9 +86,9 @@
 	height: var(--spacing-mark-star-small);
 }
 
-@media (width >= 600px) {
+@variant medium {
 	.board:not(.always-compact) .coin.coin-board {
-		border-width: 4px;
+		border-width: var(--spacing-coin-ring-expanded);
 	}
 
 	.board:not(.always-compact) .red.coin-board .coin-mark {

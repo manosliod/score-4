@@ -66,6 +66,12 @@
 	--spacing-gutter: 16px;
 	--spacing-pane-padding: 32px;
 	--spacing-win-ring: 3px;
+	--spacing-coin-ring: 3px;
+	--spacing-coin-ring-expanded: 4px;
+	--spacing-coin-ring-small: 2px;
+	--spacing-focus-ring: 3px;
+	--spacing-focus-offset: 2px;
+	--spacing-field-border-focus: 2px;
 	--spacing-mark-circle: 16px;
 	--spacing-mark-star: 26px;
 	--spacing-mark-circle-expanded: 22px;

@@ -23,8 +23,8 @@
 	}
 
 	:focus-visible {
-		outline: 3px solid var(--color-secondary);
-		outline-offset: 2px;
+		outline: var(--spacing-focus-ring) solid var(--color-secondary);
+		outline-offset: var(--spacing-focus-offset);
 	}
 }
 
@@ -73,7 +73,7 @@
 	width: calc(7 * var(--cell) + 2 * var(--spacing-board-padding));
 	height: calc(6 * var(--cell) + 2 * var(--spacing-column-padding) + 2 * var(--spacing-board-padding));
 
-	@media (width >= 600px) {
+	@variant medium {
 		--cell: min(
 			var(--spacing-cell-expanded),
 			calc((100cqw - 2 * var(--spacing-pane-padding) - 2 * var(--spacing-board-padding-expanded)) / 7),
@@ -96,7 +96,7 @@
 	container-type: inline-size;
 	width: 100%;
 
-	@media (width >= 840px) {
+	@variant expanded {
 		container-type: size;
 		width: auto;
 	}

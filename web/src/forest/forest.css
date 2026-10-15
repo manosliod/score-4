@@ -34,14 +34,14 @@
 }
 
 .peer:focus ~ .field-border {
-	border-width: 2px;
+	border-width: var(--spacing-field-border-focus);
 	border-color: var(--color-primary);
 }
 
 .text-field.invalid .field-border,
 .text-field.invalid:hover .field-border,
 .text-field.invalid .peer:focus ~ .field-border {
-	border-width: 2px;
+	border-width: var(--spacing-field-border-focus);
 	border-color: var(--color-error);
 }
 
