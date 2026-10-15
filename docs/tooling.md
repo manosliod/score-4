@@ -108,8 +108,8 @@ the original does not support ESLint 10 yet.
 `.github/workflows/ci.yml` runs on every push and pull request:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
-   pinned to `@v1`. Run it locally with
-   `uvx --from git+https://github.com/manosliod/dev-tooling@v1 check-no-comments`.
+   pinned to `@v1.1`. Run it locally with
+   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.1 check-no-comments`.
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
    folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
