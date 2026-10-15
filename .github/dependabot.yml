@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    target-branch: master
+    commit-message:
+      prefix: ci
+    groups:
+      dev-tooling:
+        patterns:
+          - manosliod/dev-tooling*
+      actions:
+        patterns:
+          - '*'

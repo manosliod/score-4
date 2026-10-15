@@ -120,6 +120,12 @@ the original does not support ESLint 10 yet.
    `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
    to <https://manosliod.github.io/score-4/>. It is the only job that may write to GitHub Pages.
 
+Dependabot (`.github/dependabot.yml`) checks the workflow every day. When `manosliod/dev-tooling` releases a new
+minor version (`v1.2`), or an action used here gets a new version, it opens a pull request that changes the reference,
+and CI on that pull request shows whether everything still passes. Patches of `v1.1` need no pull request, because
+the `v1.1` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
+one.
+
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
 `uv tool install clang-format==23.1.3` (and the same for the others), or `pip install -r requirements-tools.txt`.
