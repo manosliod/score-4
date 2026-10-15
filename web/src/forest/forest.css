@@ -29,8 +29,10 @@
 	color: var(--color-primary);
 }
 
-.text-field:hover .field-border {
-	border-color: var(--color-on-surface);
+@media (hover: hover) and (pointer: fine) {
+	.text-field:hover .field-border {
+		border-color: var(--color-on-surface);
+	}
 }
 
 .peer:focus ~ .field-border {
