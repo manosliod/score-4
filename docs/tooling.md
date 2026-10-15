@@ -109,7 +109,9 @@ the original does not support ESLint 10 yet.
 
 1. **no-comments**: `scripts/check_no_comments.py` (a copy of the studio script; never edit it here).
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
-   release build and its tests.
+   release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
+   folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
+   with a fresh cache instead of failing on the old folder.
 3. **web**: installs Emscripten 6.0.12 (cached), builds the engine, then runs `pnpm lint`, `typecheck`, `test`,
    `build` and `e2e`.
 4. **deploy**: only on a push to `master`, and only once the three jobs above pass. It builds the web app with

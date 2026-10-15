@@ -32,7 +32,7 @@ jobs:
       - uses: actions/cache@v6
         with:
           path: build/debug/_deps
-          key: deps-${{ runner.os }}-${{ hashFiles('CMakeLists.txt') }}
+          key: deps-${{ runner.os }}-${{ github.event.repository.name }}-${{ hashFiles('CMakeLists.txt') }}
       - name: Configure
         run: cmake --preset debug
       - name: Lint
