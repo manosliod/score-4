@@ -29,7 +29,7 @@ describe('engine service', () => {
 			{ row: 3, column: 0 },
 			{ row: 2, column: 0 }
 		])
-		expect(match.columns()[0]).toEqual([null, null, 'red', 'red', 'red', 'red'])
+		expect(match.column(0)).toEqual([null, null, 'red', 'red', 'red', 'red'])
 		expect(match.drop(3)).toBe('gameOver')
 	})
 

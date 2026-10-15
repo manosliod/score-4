@@ -1,6 +1,7 @@
 import { createStore } from 'zustand/vanilla'
 
 import { showSnackbar } from '@/forest/components/snackbar'
+import { emptyColumns } from '@/shared/types/game'
 import type { BoardPosition, Column, Engine, MatchSetup, PlayerNumber } from '@/shared/types/game'
 import { colourNames, playerName } from '@/shared/types/players'
 
@@ -26,7 +27,7 @@ export function createGameStore(engine: Engine, setup: MatchSetup) {
 	return createStore<GameState>()((set, get) => ({
 		setup,
 		status: 'playing',
-		columns: match.columns(),
+		columns: emptyColumns,
 		turn: setup.starter,
 		winner: null,
 		winningLine: [],

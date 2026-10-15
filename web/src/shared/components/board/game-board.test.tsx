@@ -1,12 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
-import { boardSize } from '@/shared/types/game'
+import { boardSize, emptyColumn } from '@/shared/types/game'
 import type { Column } from '@/shared/types/game'
 
 import { GameBoard } from './game-board'
 
-const emptyColumn: Column = Array.from({ length: boardSize.rows }, () => null)
 const fullColumn: Column = Array.from({ length: boardSize.rows }, () => 'red')
 
 const aBoard = (full: readonly number[] = []) =>

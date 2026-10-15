@@ -101,7 +101,6 @@ function adapt(module: MainModule): Engine {
 		const wrapped: EngineMatch = {
 			drop: (columnNumber) => schemas.result.parse(match.drop(columnNumber)),
 			column,
-			columns: () => Array.from({ length: boardSize.columns }, (_, index) => column(index)),
 			turn: () => schemas.player.parse(match.turn()),
 			winner: () => schemas.winner.parse(match.winner()),
 			winningLine: () => schemas.winningLine.parse(match.winningLine())

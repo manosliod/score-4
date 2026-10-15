@@ -10,6 +10,10 @@ export type CellContent = Colour | null
 
 export type Column = readonly CellContent[]
 
+export const emptyColumn: Column = Array.from({ length: boardSize.rows }, () => null)
+
+export const emptyColumns: readonly Column[] = Array.from({ length: boardSize.columns }, () => emptyColumn)
+
 export type BoardPosition = Readonly<{ row: number; column: number }>
 
 export type DropResult = 'playing' | 'won' | 'tie' | 'columnFull' | 'columnOutOfRange' | 'gameOver'
@@ -22,7 +26,6 @@ export type MatchSetup = Readonly<{
 export type EngineMatch = {
 	drop(columnNumber: number): DropResult
 	column(index: number): Column
-	columns(): readonly Column[]
 	turn(): PlayerNumber
 	winner(): PlayerNumber | null
 	winningLine(): readonly BoardPosition[]

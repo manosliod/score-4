@@ -2,17 +2,13 @@ import { AppBar } from '@/forest/components/app-bar'
 import { IconButton } from '@/forest/components/icon-button'
 import { GameBoard } from '@/shared/components/board/game-board'
 import { engineService } from '@/shared/services/engine-service'
-import { boardSize } from '@/shared/types/game'
-import type { Column, MatchSetup } from '@/shared/types/game'
+import { emptyColumns } from '@/shared/types/game'
+import type { MatchSetup } from '@/shared/types/game'
 
 import { SetupStoreProvider, useSetupActions, useStep } from '../stores/setup-store-provider'
 
 import { AgesForm } from './ages-form'
 import { ColourForm } from './colour-form'
-
-const emptyColumns: readonly Column[] = Array.from({ length: boardSize.columns }, () =>
-	Array.from({ length: boardSize.rows }, () => null)
-)
 
 type SetupScreenProps = { onStart: (setup: MatchSetup) => void; onEngineError: () => void; onIntent: () => void }
 

@@ -50,7 +50,6 @@ class Match {
         return cells;
     }
     [[nodiscard]] Player turn() const { return game_.turn(); }
-    [[nodiscard]] Disc discOf(Player player) const { return game_.discOf(player); }
     [[nodiscard]] std::optional<Player> winner() const { return winner_; }
     [[nodiscard]] std::optional<WinningLine> winningLine() const { return winningLine_; }
 
@@ -64,9 +63,6 @@ class Match {
 
 EMSCRIPTEN_BINDINGS(score4) {
     namespace em = emscripten;
-
-    em::constant("rowCount", score4::rowCount);
-    em::constant("columnCount", score4::columnCount);
 
     em::enum_<Disc>("Disc").value("Red", Disc::Red).value("Yellow", Disc::Yellow);
     em::enum_<Cell>("Cell").value("Empty", Cell::Empty).value("Red", Cell::Red).value("Yellow", Cell::Yellow);
@@ -102,7 +98,6 @@ EMSCRIPTEN_BINDINGS(score4) {
         .function("drop", &Match::drop)
         .function("column", &Match::column)
         .function("turn", &Match::turn)
-        .function("discOf", &Match::discOf)
         .function("winner", &Match::winner)
         .function("winningLine", &Match::winningLine);
 }
