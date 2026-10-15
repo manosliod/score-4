@@ -1,4 +1,4 @@
-# Score_4 — audit
+# score-4 — audit
 
 Audited 2026-10-13 on branch `refresh/modernize`, from `master` at `bc90dd5`.
 
