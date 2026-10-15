@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   no-comments:
-    uses: manosliod/dev-tooling/.github/workflows/no-comments.yml@v1
+    uses: manosliod/dev-tooling/.github/workflows/no-comments.yml@v1.1
 
   cpp:
     runs-on: ubuntu-26.04

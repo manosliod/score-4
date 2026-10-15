@@ -108,8 +108,8 @@ the original does not support ESLint 10 yet.
 `.github/workflows/ci.yml` runs on every push and pull request:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
-   pinned to `@v1`. Run it locally with
-   `uvx --from git+https://github.com/manosliod/dev-tooling@v1 check-no-comments`.
+   pinned to `@v1.1`. Run it locally with
+   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.1 check-no-comments`.
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
    folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
@@ -119,6 +119,12 @@ the original does not support ESLint 10 yet.
 4. **deploy**: only on a push to `master`, and only once the three jobs above pass. It builds the web app with
    `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
    to <https://manosliod.github.io/score-4/>. It is the only job that may write to GitHub Pages.
+
+Dependabot (`.github/dependabot.yml`) checks the workflow every day. When `manosliod/dev-tooling` releases a new
+minor version (`v1.2`), or an action used here gets a new version, it opens a pull request that changes the reference,
+and CI on that pull request shows whether everything still passes. Patches of `v1.1` need no pull request, because
+the `v1.1` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
+one.
 
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
