@@ -38,6 +38,8 @@ test('a full column is refused with a snackbar and the same player moves again',
 	await expect(page.getByText('Column 4 is full. Pick another column.')).toBeVisible()
 	await expect(page.getByRole('heading', { name: 'Player 2’s turn' })).toBeVisible()
 	await expect(column(page, 4)).toHaveAttribute('aria-disabled', 'true')
+	await dropAll(page, [3])
+	await expect(page.getByText('Column 4 is full. Pick another column.')).toBeHidden()
 })
 
 test('the keyboard moves between columns and drops with Enter', async ({ page }) => {

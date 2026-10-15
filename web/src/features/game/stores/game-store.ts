@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla'
 
-import { showSnackbar } from '@/forest/components/snackbar'
+import { hideSnackbar, showSnackbar } from '@/forest/components/snackbar'
 import { emptyColumns } from '@/shared/types/game'
 import type { BoardPosition, Column, Engine, MatchSetup, PlayerNumber } from '@/shared/types/game'
 import { colourNames, playerName } from '@/shared/types/players'
@@ -50,6 +50,7 @@ export function createGameStore(engine: Engine, setup: MatchSetup) {
 					set({ refusedColumn: column, announcement: `Column ${String(column)} is full.` })
 					return
 				}
+				hideSnackbar()
 				const player = state.turn
 				const dropped = match.column(column - 1)
 				const columns = state.columns.with(column - 1, dropped)

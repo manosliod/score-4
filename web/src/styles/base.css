@@ -8,6 +8,13 @@
 @layer base {
 	html {
 		color-scheme: light dark;
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
+	html,
+	body {
+		overscroll-behavior: none;
 	}
 
 	body {
@@ -20,6 +27,9 @@
 	button,
 	[role='gridcell'] {
 		touch-action: manipulation;
+		user-select: none;
+		-webkit-user-select: none;
+		-webkit-touch-callout: none;
 	}
 
 	:focus-visible {
