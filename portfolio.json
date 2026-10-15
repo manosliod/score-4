@@ -28,7 +28,8 @@
 		"React with zero effects and no hand-written memoisation, under a checked bundle-size budget"
 	],
 	"links": {
-		"repo": "https://github.com/manosliod/Score_4",
+		"repo": "https://github.com/manosliod/score-4",
+		"demo": "https://manosliod.github.io/score-4/",
 		"figma": "https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7",
 		"caseStudy": "docs/portfolio/case-study.md"
 	},

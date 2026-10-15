@@ -8,7 +8,7 @@ Score 4 is Connect Four for two people at one keyboard or one phone. The rules l
 library. It runs as a console game, and, compiled to WebAssembly, behind a mobile-first React app designed in Figma
 on Material 3. The console and the web play the exact same game, because there is only one implementation of it.
 
-[Design (Figma)](https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7) · [Case study](docs/portfolio/case-study.md)
+[Play the demo](https://manosliod.github.io/score-4/) · [Design (Figma)](https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7) · [Case study](docs/portfolio/case-study.md)
 
 ## Features
 
