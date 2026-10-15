@@ -1,29 +1,22 @@
-import { createContext, use, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { useStore } from 'zustand'
 
 import type { EngineService } from '@/shared/services/engine-service'
 import type { PlayerNumber } from '@/shared/types/game'
 import { matchSetupFor } from '@/shared/types/players'
+import { createStoreContext } from '@/shared/utils/create-store-context'
 
 import { createSetupStore } from './setup-store'
-import type { SetupState, SetupStore } from './setup-store'
+import type { SetupState } from './setup-store'
 
-const SetupStoreContext = createContext<SetupStore | null>(null)
+const { StoreContext: SetupStoreContext, useStoreSelector: useSetupStore } =
+	createStoreContext<SetupState>('SetupStoreProvider')
 
 type SetupStoreProviderProps = { engine: EngineService; children: ReactNode }
 
 export function SetupStoreProvider({ engine, children }: SetupStoreProviderProps) {
 	const [store] = useState(() => createSetupStore(engine))
 	return <SetupStoreContext value={store}>{children}</SetupStoreContext>
-}
-
-function useSetupStore<T>(selector: (state: SetupState) => T): T {
-	const store = use(SetupStoreContext)
-	if (!store) {
-		throw new Error('SetupStoreProvider is missing')
-	}
-	return useStore(store, selector)
 }
 
 export const useStep = () => useSetupStore((state) => state.step)

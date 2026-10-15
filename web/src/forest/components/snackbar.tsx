@@ -1,7 +1,7 @@
 import { Toast } from '@base-ui/react/toast'
 import type { ReactNode } from 'react'
 
-export const snackbarManager = Toast.createToastManager()
+const snackbarManager = Toast.createToastManager()
 
 const visibleFor = 4000
 

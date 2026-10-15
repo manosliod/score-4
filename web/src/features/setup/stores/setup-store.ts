@@ -2,8 +2,7 @@ import { z } from 'zod'
 import { createStore } from 'zustand/vanilla'
 
 import type { EngineService } from '@/shared/services/engine-service'
-import type { Engine } from '@/shared/types/game'
-import type { Colour, PlayerNumber } from '@/shared/types/game'
+import type { Colour, Engine, PlayerNumber } from '@/shared/types/game'
 
 export const ageError = 'Enter a whole number, like 12'
 
