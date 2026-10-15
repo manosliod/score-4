@@ -112,6 +112,9 @@ the original does not support ESLint 10 yet.
    release build and its tests.
 3. **web**: installs Emscripten 6.0.12 (cached), builds the engine, then runs `pnpm lint`, `typecheck`, `test`,
    `build` and `e2e`.
+4. **deploy**: only on a push to `master`, and only once the three jobs above pass. It builds the web app with
+   `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
+   to <https://manosliod.github.io/score-4/>. It is the only job that may write to GitHub Pages.
 
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
