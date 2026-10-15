@@ -19,8 +19,7 @@ class Console {
     [[nodiscard]] std::optional<Game> setUp();
     [[nodiscard]] std::optional<int> askNumber(std::string_view prompt);
     [[nodiscard]] std::optional<int> askAge(Player player);
-    [[nodiscard]] std::optional<Disc> askDisc(std::string_view prompt);
-    [[nodiscard]] std::optional<Disc> askOtherDisc(std::string_view prompt, Disc taken);
+    [[nodiscard]] std::optional<Disc> askDisc(std::string_view prompt, std::optional<Disc> taken = std::nullopt);
     [[nodiscard]] std::optional<Outcome> playTurn(Game &game);
     void redraw(const Game &game);
     void announce(const Outcome &outcome);

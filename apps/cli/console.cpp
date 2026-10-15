@@ -75,7 +75,7 @@ std::optional<Game> Console::setUp() {
     if (!starterDisc) {
         return std::nullopt;
     }
-    const auto secondDisc = askOtherDisc(secondColourPrompt(second), *starterDisc);
+    const auto secondDisc = askDisc(secondColourPrompt(second), *starterDisc);
     if (!secondDisc) {
         return std::nullopt;
     }
@@ -102,27 +102,14 @@ std::optional<int> Console::askAge(Player player) {
     return askNumber("Give me your age: ");
 }
 
-std::optional<Disc> Console::askDisc(std::string_view prompt) {
+std::optional<Disc> Console::askDisc(std::string_view prompt, std::optional<Disc> taken) {
     while (true) {
         output_.get() << prompt;
         std::string answer;
         if (!(input_.get() >> answer)) {
             return std::nullopt;
         }
-        if (const auto disc = parseDisc(answer)) {
-            return disc;
-        }
-    }
-}
-
-std::optional<Disc> Console::askOtherDisc(std::string_view prompt, Disc taken) {
-    while (true) {
-        output_.get() << prompt;
-        std::string answer;
-        if (!(input_.get() >> answer)) {
-            return std::nullopt;
-        }
-        if (const auto disc = parseOtherDisc(answer, taken)) {
+        if (const auto disc = taken ? parseOtherDisc(answer, *taken) : parseDisc(answer)) {
             return disc;
         }
     }
