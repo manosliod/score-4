@@ -75,7 +75,7 @@ std::optional<Game> Console::setUp() {
     if (!starterDisc) {
         return std::nullopt;
     }
-    const auto secondDisc = askDisc(secondColourPrompt(second), *starterDisc);
+    const auto secondDisc = askDisc(secondColourPrompt(second), starterDisc);
     if (!secondDisc) {
         return std::nullopt;
     }
