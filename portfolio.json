@@ -1,0 +1,67 @@
+{
+	"slug": "score-4",
+	"name": "Score 4",
+	"tagline": "Connect Four for two players, from a tested C++ core running in the browser",
+	"summary": "A 2019 console Connect Four that could not even start a game is rebuilt as a tested C++23 game core. The same core runs as a console app and, compiled to WebAssembly, behind a mobile-first React app designed in Figma on Material 3.",
+	"year": { "original": 2019, "refreshed": 2026 },
+	"kind": "game",
+	"stack": [
+		"C++23",
+		"CMake",
+		"Catch2",
+		"WebAssembly (Emscripten)",
+		"React 19",
+		"TypeScript",
+		"Zustand",
+		"Base UI",
+		"Tailwind CSS 4",
+		"Vitest",
+		"Playwright",
+		"Figma",
+		"Material 3"
+	],
+	"highlights": [
+		"One C++ game core, unit-tested and sanitizer-checked, plays the same game in the console and in the browser",
+		"The 2019 bugs were pinned by tests first, then fixed one commit at a time",
+		"Every screen designed in Figma first, at phone and desktop widths, in light and dark",
+		"Colour-blind safe coins, full keyboard play and screen-reader announcements",
+		"React with zero effects and no hand-written memoisation, under a checked bundle-size budget"
+	],
+	"links": {
+		"repo": "https://github.com/manosliod/score-4",
+		"demo": "https://manosliod.github.io/score-4/",
+		"figma": "https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7",
+		"caseStudy": "docs/portfolio/case-study.md"
+	},
+	"cover": "docs/portfolio/cover.png",
+	"screens": [
+		"docs/portfolio/screens/compact-light-1-ages.png",
+		"docs/portfolio/screens/compact-light-2-colour.png",
+		"docs/portfolio/screens/compact-light-3-in-play.png",
+		"docs/portfolio/screens/compact-light-4-win.png",
+		"docs/portfolio/screens/compact-light-5-column-full.png",
+		"docs/portfolio/screens/compact-dark-1-ages.png",
+		"docs/portfolio/screens/compact-dark-2-colour.png",
+		"docs/portfolio/screens/compact-dark-3-in-play.png",
+		"docs/portfolio/screens/compact-dark-4-win.png",
+		"docs/portfolio/screens/compact-dark-5-column-full.png",
+		"docs/portfolio/screens/expanded-light-1-ages.png",
+		"docs/portfolio/screens/expanded-light-2-colour.png",
+		"docs/portfolio/screens/expanded-light-3-in-play.png",
+		"docs/portfolio/screens/expanded-light-4-win.png",
+		"docs/portfolio/screens/expanded-light-5-column-full.png",
+		"docs/portfolio/screens/expanded-dark-1-ages.png",
+		"docs/portfolio/screens/expanded-dark-2-colour.png",
+		"docs/portfolio/screens/expanded-dark-3-in-play.png",
+		"docs/portfolio/screens/expanded-dark-4-win.png",
+		"docs/portfolio/screens/expanded-dark-5-column-full.png"
+	],
+	"accent": "#485E92",
+	"status": "ready",
+	"author": {
+		"name": "Manos Liodakis",
+		"github": "https://github.com/manosliod",
+		"linkedin": "https://www.linkedin.com/in/emmanouil-liodakis/"
+	},
+	"license": "MIT"
+}

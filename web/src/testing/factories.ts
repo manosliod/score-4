@@ -1,0 +1,12 @@
+import type { MatchSetup } from '@/shared/types/game'
+
+export const aMatchSetup = (overrides: Partial<MatchSetup> = {}): MatchSetup => ({
+	starter: 2,
+	colours: { 1: 'yellow', 2: 'red' },
+	...overrides
+})
+
+export const tieMoves = [
+	1, 2, 1, 2, 1, 1, 3, 1, 3, 1, 4, 2, 2, 2, 7, 2, 7, 4, 4, 4, 4, 3, 4, 5, 5, 3, 5, 3, 3, 5, 5, 6, 5, 7, 6, 6, 7, 7, 6,
+	7, 6, 6
+] as const

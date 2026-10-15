@@ -1,0 +1,204 @@
+@theme {
+	--breakpoint-*: initial;
+	--breakpoint-medium: 600px;
+	--breakpoint-expanded: 840px;
+
+	--font-sans: 'Roboto', system-ui, sans-serif;
+
+	--text-display-large: 57px;
+	--text-display-large--line-height: 64px;
+	--text-display-large--letter-spacing: -0.25px;
+	--text-display-large--font-weight: 400;
+	--text-display-small: 36px;
+	--text-display-small--line-height: 44px;
+	--text-display-small--letter-spacing: 0;
+	--text-display-small--font-weight: 400;
+	--text-headline-medium: 28px;
+	--text-headline-medium--line-height: 36px;
+	--text-headline-medium--letter-spacing: 0;
+	--text-headline-medium--font-weight: 400;
+	--text-headline-small: 24px;
+	--text-headline-small--line-height: 32px;
+	--text-headline-small--letter-spacing: 0;
+	--text-headline-small--font-weight: 400;
+	--text-title-large: 22px;
+	--text-title-large--line-height: 28px;
+	--text-title-large--letter-spacing: 0;
+	--text-title-large--font-weight: 400;
+	--text-title-medium: 16px;
+	--text-title-medium--line-height: 24px;
+	--text-title-medium--letter-spacing: 0.15px;
+	--text-title-medium--font-weight: 500;
+	--text-body-large: 16px;
+	--text-body-large--line-height: 24px;
+	--text-body-large--letter-spacing: 0.5px;
+	--text-body-large--font-weight: 400;
+	--text-body-medium: 14px;
+	--text-body-medium--line-height: 20px;
+	--text-body-medium--letter-spacing: 0.25px;
+	--text-body-medium--font-weight: 400;
+	--text-body-small: 12px;
+	--text-body-small--line-height: 16px;
+	--text-body-small--letter-spacing: 0.4px;
+	--text-body-small--font-weight: 400;
+	--text-label-large: 14px;
+	--text-label-large--line-height: 20px;
+	--text-label-large--letter-spacing: 0.1px;
+	--text-label-large--font-weight: 500;
+
+	--radius-extra-small: 4px;
+	--radius-medium: 12px;
+	--radius-large: 16px;
+	--radius-extra-large: 28px;
+	--radius-full: 1000px;
+
+	--spacing-cell: 52px;
+	--spacing-coin: 44px;
+	--spacing-cell-expanded: 72px;
+	--spacing-coin-expanded: 62px;
+	--spacing-coin-small: 24px;
+	--spacing-hole-gap: 8px;
+	--spacing-hole-gap-expanded: 10px;
+	--spacing-board-padding: 6px;
+	--spacing-board-padding-expanded: 12px;
+	--spacing-column-padding: 4px;
+	--spacing-column-padding-expanded: 6px;
+	--spacing-gutter: 16px;
+	--spacing-pane-padding: 32px;
+	--spacing-win-ring: 3px;
+	--spacing-coin-ring: 3px;
+	--spacing-coin-ring-expanded: 4px;
+	--spacing-coin-ring-small: 2px;
+	--spacing-focus-ring: 3px;
+	--spacing-focus-offset: 2px;
+	--spacing-field-border-focus: 2px;
+	--spacing-mark-circle: 16px;
+	--spacing-mark-star: 26px;
+	--spacing-mark-circle-expanded: 22px;
+	--spacing-mark-star-expanded: 36px;
+	--spacing-mark-circle-small: 9px;
+	--spacing-mark-star-small: 14px;
+	--spacing-icon: 24px;
+	--spacing-icon-small: 18px;
+	--spacing-touch: 48px;
+	--spacing-control: 40px;
+	--spacing-field: 56px;
+	--spacing-dialog: 312px;
+	--spacing-dialog-margin: 24px;
+	--spacing-snackbar: 400px;
+	--spacing-form: 400px;
+	--spacing-board-expanded: 528px;
+	--spacing-side-pane: 360px;
+	--spacing-preview-pane: 480px;
+	--spacing-loading: 48px;
+	--spacing-loading-shape-width: 33px;
+	--spacing-loading-shape-height: 34px;
+
+	--shadow-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 30%), 0 4px 8px 3px rgb(0 0 0 / 15%);
+
+	--ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+	--ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+	--ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+	--ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root {
+	--motion-duration-short1: 50ms;
+	--motion-duration-short2: 100ms;
+	--motion-duration-short3: 150ms;
+	--motion-duration-short4: 200ms;
+	--motion-duration-medium1: 250ms;
+	--motion-duration-medium2: 300ms;
+	--motion-duration-long2: 500ms;
+
+	--state-hover: 8%;
+	--state-focus: 10%;
+	--state-pressed: 10%;
+	--scrim-opacity: 32%;
+
+	--sys-primary: #485e92;
+	--sys-on-primary: #ffffff;
+	--sys-primary-container: #adc3fe;
+	--sys-on-primary-container: #324574;
+	--sys-secondary: #585f72;
+	--sys-secondary-container: #d9dff6;
+	--sys-on-secondary-container: #404659;
+	--sys-surface: #faf8ff;
+	--sys-surface-container-lowest: #ffffff;
+	--sys-surface-container-low: #f4f3fa;
+	--sys-surface-container-high: #e8e7ef;
+	--sys-on-surface: #1a1b21;
+	--sys-on-surface-variant: #44464f;
+	--sys-outline: #757780;
+	--sys-outline-variant: #c5c6d0;
+	--sys-inverse-surface: #282a2f;
+	--sys-inverse-on-surface: #eeedf4;
+	--sys-error: #b3261e;
+	--sys-scrim: #000000;
+
+	--coin-red-fill: #fda499;
+	--coin-red-ring: #914b43;
+	--coin-red-mark: #73332c;
+	--coin-yellow-fill: #ffd57d;
+	--coin-yellow-ring: #795a0c;
+	--coin-yellow-mark: #544522;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sys-primary: #b0c6ff;
+		--sys-on-primary: #152e60;
+		--sys-primary-container: #2e4578;
+		--sys-on-primary-container: #d9e2ff;
+		--sys-secondary: #c0c6dc;
+		--sys-secondary-container: #404659;
+		--sys-on-secondary-container: #dce2f9;
+		--sys-surface: #121318;
+		--sys-surface-container-lowest: #0c0e13;
+		--sys-surface-container-low: #1a1b21;
+		--sys-surface-container-high: #282a2f;
+		--sys-on-surface: #e2e2e9;
+		--sys-on-surface-variant: #c5c6d0;
+		--sys-outline: #8f909a;
+		--sys-outline-variant: #44464f;
+		--sys-inverse-surface: #e2e2e9;
+		--sys-inverse-on-surface: #33343a;
+		--sys-error: #f2b8b5;
+
+		--coin-red-fill: #73342c;
+		--coin-red-ring: #ffa79b;
+		--coin-red-mark: #ffdad5;
+		--coin-yellow-fill: #6d5000;
+		--coin-yellow-ring: #e9c16c;
+		--coin-yellow-mark: #fff7ef;
+	}
+}
+
+@theme inline {
+	--color-primary: var(--sys-primary);
+	--color-on-primary: var(--sys-on-primary);
+	--color-primary-container: var(--sys-primary-container);
+	--color-on-primary-container: var(--sys-on-primary-container);
+	--color-secondary: var(--sys-secondary);
+	--color-secondary-container: var(--sys-secondary-container);
+	--color-on-secondary-container: var(--sys-on-secondary-container);
+	--color-surface: var(--sys-surface);
+	--color-surface-container-lowest: var(--sys-surface-container-lowest);
+	--color-surface-container-low: var(--sys-surface-container-low);
+	--color-surface-container-high: var(--sys-surface-container-high);
+	--color-on-surface: var(--sys-on-surface);
+	--color-on-surface-variant: var(--sys-on-surface-variant);
+	--color-outline: var(--sys-outline);
+	--color-outline-variant: var(--sys-outline-variant);
+	--color-inverse-surface: var(--sys-inverse-surface);
+	--color-inverse-on-surface: var(--sys-inverse-on-surface);
+	--color-error: var(--sys-error);
+	--color-scrim: var(--sys-scrim);
+
+	--color-coin-red-fill: var(--coin-red-fill);
+	--color-coin-red-ring: var(--coin-red-ring);
+	--color-coin-red-mark: var(--coin-red-mark);
+	--color-coin-yellow-fill: var(--coin-yellow-fill);
+	--color-coin-yellow-ring: var(--coin-yellow-ring);
+	--color-coin-yellow-mark: var(--coin-yellow-mark);
+}
