@@ -1,6 +1,6 @@
 # Design
 
-The source of truth is the Figma page [↳ Score_4](https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7),
+The source of truth is the Figma page [↳ score-4](https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=1-7),
 built from the Material 3 Design Kit. This file mirrors its values so the web demo can be built without opening
 Figma. If the two disagree, Figma wins and this file is updated.
 
