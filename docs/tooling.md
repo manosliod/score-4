@@ -107,7 +107,9 @@ the original does not support ESLint 10 yet.
 
 `.github/workflows/ci.yml` runs on every push and pull request:
 
-1. **no-comments**: `scripts/check_no_comments.py` (a copy of the studio script; never edit it here).
+1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
+   pinned to `@v1`. Run it locally with
+   `uvx --from git+https://github.com/manosliod/dev-tooling@v1 check-no-comments`.
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
    folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
@@ -131,5 +133,5 @@ format check gives the same answer on a laptop and in CI. Install them locally w
 | After Claude edits a `.cpp` or `.hpp` file | `clang-format -i` on that file, so it always matches the format check. |
 | When Claude is about to finish its turn | If anything under `include/`, `src/`, `apps/`, `tests/` or the CMake files is changed and not committed, it configures, builds and runs the debug tests. If any step fails, Claude has to keep working. If it fails a second time in a row, the failure is shown but Claude may stop, so it can never get stuck in a loop. |
 
-The comment check (`check_no_comments.py --hook`) runs on every edit from the settings one folder up, in
-`~/Sites/manosliod/.claude/settings.json`.
+The comment check (`check-no-comments --hook`, from `dev-tooling`) runs on every edit from the settings one folder
+up, in `~/Sites/manosliod/.claude/settings.json`.
