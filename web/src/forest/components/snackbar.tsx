@@ -5,6 +5,10 @@ const snackbarManager = Toast.createToastManager()
 
 const visibleFor = 4000
 
+export function hideSnackbar() {
+	snackbarManager.close()
+}
+
 export function showSnackbar(message: string) {
 	snackbarManager.close()
 	snackbarManager.add({ description: message, timeout: visibleFor })

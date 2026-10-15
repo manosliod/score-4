@@ -116,3 +116,12 @@ reaches the game, which refuses it with "Column N is full. Pick another column."
 
 **Why:** each column is one tap target the full height of the board, still well above the 24-pixel minimum of WCAG
 2.5.8, and a game that scrolls sideways is harder to play than one with slightly narrower columns.
+
+## The full-column message closes on the next move
+
+**Chose:** the "Column N is full" snackbar closes as soon as the game accepts a move.
+
+**Instead of:** leaving it on screen for its full four seconds.
+
+**Why:** the message is about the move that was refused. Once a coin drops it is out of date, and on a small phone a
+game that ends within those seconds would have it covering Play again and New players.

@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import { hideSnackbar } from '@/forest/components/snackbar'
 import { engineService } from '@/shared/services/engine-service'
 import { aMatchSetup, tieMoves } from '@/testing/factories'
 
 import { createGameStore } from './game-store'
 
-vi.mock('@/forest/components/snackbar', () => ({ showSnackbar: vi.fn() }))
+vi.mock('@/forest/components/snackbar', () => ({ hideSnackbar: vi.fn(), showSnackbar: vi.fn() }))
 
 const aGame = async (setup = aMatchSetup()) => createGameStore(await engineService.load(), setup)
 
@@ -50,6 +51,14 @@ describe('game store', () => {
 		expect(state.turn).toBe(2)
 		expect(state.moves).toBe(6)
 		expect(state.announcement).toBe('Column 4 is full.')
+	})
+
+	it('closes the full-column snackbar once a move is accepted', async () => {
+		const store = await aGame()
+		play(store, [4, 4, 4, 4, 4, 4, 4])
+		vi.mocked(hideSnackbar).mockClear()
+		play(store, [3])
+		expect(hideSnackbar).toHaveBeenCalledOnce()
 	})
 
 	it('ends with a win, the winning line and the move count, then ignores moves', async () => {
