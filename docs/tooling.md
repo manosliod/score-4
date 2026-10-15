@@ -108,8 +108,8 @@ the original does not support ESLint 10 yet.
 `.github/workflows/ci.yml` runs on every push and pull request:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
-   pinned to `@v1.1`. Run it locally with
-   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.1 check-no-comments`.
+   pinned to `@v1.2`. Run it locally with
+   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.2 check-no-comments`.
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
    folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
@@ -121,10 +121,36 @@ the original does not support ESLint 10 yet.
    to <https://manosliod.github.io/score-4/>. It is the only job that may write to GitHub Pages.
 
 Dependabot (`.github/dependabot.yml`) checks the workflow every day. When `manosliod/dev-tooling` releases a new
-minor version (`v1.2`), or an action used here gets a new version, it opens a pull request that changes the reference,
-and CI on that pull request shows whether everything still passes. Patches of `v1.1` need no pull request, because
-the `v1.1` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
+minor version (`v1.3`), or an action used here gets a new version, it opens a pull request that changes the reference,
+and CI on that pull request shows whether everything still passes. Patches of `v1.2` need no pull request, because
+the `v1.2` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
 one.
+
+`.github/workflows/pull-request.yml` runs **pr-title** from `dev-tooling` on every pull request. It fails when the
+title is not a Conventional Commit such as `feat: show the winning line` or `fix(web): keep focus after a move`.
+Pull requests are squash-merged, so the title becomes the commit on `master`, and the commit decides the release.
+
+## Releases
+
+`.github/workflows/release.yml` runs release-please from `dev-tooling` on every push to `master`. When `master` has
+something to release, it opens a pull request that raises the version in `version.txt` and `CMakeLists.txt` and adds
+the new entries to `CHANGELOG.md`. Merging it tags the release and publishes a GitHub release with the same notes.
+
+| Commit on `master` | Next version | In the changelog |
+| --- | --- | --- |
+| `fix:` | patch | Bug Fixes |
+| `feat:` | minor | Features |
+| `feat!:` or a `BREAKING CHANGE:` footer | major | marked breaking |
+| `perf:`, `refactor:`, `revert:` | patch | Performance, Refactoring, Reverts |
+| `docs:`, `test:`, `build:`, `ci:`, `chore:`, `style:` | none | hidden |
+
+`v0.1.0` is the program as it was in 2019, before this refresh. `v1.0.0` is the first release after it.
+
+The release pull request is opened by the release GitHub App, not by the workflow's own token, so CI runs on it and
+branch protection can require its checks. The app's client ID is the repository variable `RELEASE_APP_CLIENT_ID`,
+and its private key is the secret `RELEASE_APP_PRIVATE_KEY`.
+
+## Tool versions
 
 The exact versions of clang-format, clang-tidy, CMake and Ninja are pinned in `requirements-tools.txt`, so the
 format check gives the same answer on a laptop and in CI. Install them locally with
