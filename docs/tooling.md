@@ -137,8 +137,9 @@ key in the title (`feat: KAN-12 show the winning line`) becomes a link to the is
 
 `.github/workflows/release.yml` runs release-please from `dev-tooling` on every push to `master`. When `master` has
 something to release, it opens a pull request that raises the version in `CMakeLists.txt` and adds
-the new entries to `CHANGELOG.md`. Auto-merge is on for that pull request, so it merges on its own once CI passes.
-That tags the release and publishes a GitHub release with the same notes.
+the new entries to `CHANGELOG.md`. That pull request stays open and grows with every merge to `master`, so pull
+requests can be reviewed and merged one at a time without releasing or deploying anything. Merging the release pull
+request is the decision to release: it tags the release and publishes a GitHub release with the same notes.
 
 The same workflow then runs **deploy**, only when a release was made: it builds the web app with
 `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
