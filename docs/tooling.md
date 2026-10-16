@@ -105,7 +105,9 @@ the original does not support ESLint 10 yet.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push and pull request:
+`.github/workflows/ci.yml` runs on every pull request and on every push to `master`. Pushes to other branches and
+tags do not run it: a branch is checked once it has a pull request, and a tag points at a commit `master` already
+checked. A newer push to the same pull request cancels the run still going for the older one:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
    pinned to `@v1.2`. Run it locally with
@@ -132,7 +134,7 @@ key in the title (`feat: KAN-12 show the winning line`) becomes a link to the is
 ## Releases
 
 `.github/workflows/release.yml` runs release-please from `dev-tooling` on every push to `master`. When `master` has
-something to release, it opens a pull request that raises the version in `version.txt` and `CMakeLists.txt` and adds
+something to release, it opens a pull request that raises the version in `CMakeLists.txt` and adds
 the new entries to `CHANGELOG.md`. Auto-merge is on for that pull request, so it merges on its own once CI passes.
 That tags the release and publishes a GitHub release with the same notes.
 
