@@ -9,7 +9,7 @@ permissions: {}
 
 jobs:
   release-please:
-    uses: manosliod/dev-tooling/.github/workflows/release-please.yml@v1.2
+    uses: manosliod/dev-tooling/.github/workflows/release-please.yml@v1.3
     with:
       app-client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
       auto-merge: true

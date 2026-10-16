@@ -13,4 +13,6 @@ permissions:
 
 jobs:
   pr-title:
-    uses: manosliod/dev-tooling/.github/workflows/pr-title.yml@v1.2
+    uses: manosliod/dev-tooling/.github/workflows/pr-title.yml@v1.3
+    with:
+      jira-project: KAN

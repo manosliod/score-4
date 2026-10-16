@@ -110,8 +110,8 @@ tags do not run it: a branch is checked once it has a pull request, and a tag po
 checked. A newer push to the same pull request cancels the run still going for the older one:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
-   pinned to `@v1.2`. Run it locally with
-   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.2 check-no-comments`.
+   pinned to `@v1.3`. Run it locally with
+   `uvx --from git+https://github.com/manosliod/dev-tooling@v1.3 check-no-comments`.
 2. **cpp** on Ubuntu 26.04 (GCC 15): format check, configure, clang-tidy, build, tests with sanitizers, then a
    release build and its tests. The downloaded test library (Catch2) is cached between runs. CMake writes the
    folder it was built in into that cache, so the cache name includes the repository name: after a rename, CI starts
@@ -120,13 +120,15 @@ checked. A newer push to the same pull request cancels the run still going for t
    `build` and `e2e`.
 
 Dependabot (`.github/dependabot.yml`) checks the workflow every day. When `manosliod/dev-tooling` releases a new
-minor version (`v1.3`), or an action used here gets a new version, it opens a pull request that changes the reference,
-and CI on that pull request shows whether everything still passes. Patches of `v1.2` need no pull request, because
-the `v1.2` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
+minor version (`v1.4`), or an action used here gets a new version, it opens a pull request that changes the reference,
+and CI on that pull request shows whether everything still passes. Patches of `v1.3` need no pull request, because
+the `v1.3` tag moves to them. `dev-tooling` updates come in their own pull request; all other actions are grouped in
 one.
 
 `.github/workflows/pull-request.yml` runs **pr-title** from `dev-tooling` on every pull request. It fails when the
-title is not a Conventional Commit such as `feat: show the winning line` or `fix(web): keep focus after a move`.
+title is not a Conventional Commit whose subject starts with its Jira issue key, such as
+`feat: KAN-12 show the winning line` or `fix(web): KAN-15 keep focus after a move`. Release and Dependabot pull
+requests are exempt.
 Pull requests are squash-merged: the title becomes the commit title on `master` and the pull request body its message,
 so the title decides the release. A `Release-As:` or `BREAKING CHANGE:` line goes at the very end of the body. A Jira
 key in the title (`feat: KAN-12 show the winning line`) becomes a link to the issue on GitHub.
