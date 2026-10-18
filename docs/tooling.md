@@ -147,8 +147,10 @@ Only when a release was made, the same workflow then runs the whole of `ci.yml` 
 as `ci / cpp`, `ci / web` and so on), and after it passes runs **deploy**: if CI fails, nothing is deployed and the
 live demo stays on the previous release. Deploy builds the web app with
 `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
-to <https://manosliod.github.io/score-4/>. The live demo is therefore always a released version. It is the only job
-that may write to GitHub Pages.
+to <https://manosliod.github.io/score-4/>. It is the only job that may write to GitHub Pages. The deploy can also be started
+by hand from the Actions tab ("Release" → "Run workflow"): a hand-started run skips release-please, runs CI and
+deploys the code on `master`, and never makes a release. Started that way, the demo also shows any merges that are
+not released yet.
 
 | Commit on `master` | Next version | In the changelog |
 | --- | --- | --- |

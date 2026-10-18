@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 permissions: {}
 
 jobs:
   release-please:
+    if: github.event_name == 'push'
     uses: manosliod/dev-tooling/.github/workflows/release-please.yml@v1.3
     with:
       app-client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
@@ -17,14 +19,14 @@ jobs:
 
   ci:
     needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
+    if: ${{ !cancelled() && (needs.release-please.outputs.release_created == 'true' || github.event_name == 'workflow_dispatch') }}
     uses: ./.github/workflows/ci.yml
     permissions:
       contents: read
 
   deploy:
-    needs: [release-please, ci]
-    if: needs.release-please.outputs.release_created == 'true'
+    needs: ci
+    if: ${{ !cancelled() && needs.ci.result == 'success' }}
     runs-on: ubuntu-26.04
     permissions:
       contents: read
