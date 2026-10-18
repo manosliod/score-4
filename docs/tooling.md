@@ -106,9 +106,10 @@ the original does not support ESLint 10 yet.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every pull request and on every push to `master`. Pushes to other branches and
-tags do not run it: a branch is checked once it has a pull request, and a tag points at a commit `master` already
-checked. A newer push to the same pull request cancels the run still going for the older one:
+`.github/workflows/ci.yml` runs on every pull request, and the release workflow runs it once more before it deploys
+(see "Releases"). A push to `master` does not run it on its own: the branch protection only lets a pull request merge
+when it is up to date with `master` and its checks pass, so `master` only ever holds code CI has already passed. A
+newer push to the same pull request cancels the run still going for the older one:
 
 1. **no-comments**: the shared check from [`manosliod/dev-tooling`](https://github.com/manosliod/dev-tooling),
    pinned to `@v1.3`. Run it locally with
@@ -142,7 +143,9 @@ the new entries to `CHANGELOG.md`. That pull request stays open and grows with e
 requests can be reviewed and merged one at a time without releasing or deploying anything. Merging the release pull
 request is the decision to release: it tags the release and publishes a GitHub release with the same notes.
 
-The same workflow then runs **deploy**, only when a release was made: it builds the web app with
+Only when a release was made, the same workflow then runs the whole of `ci.yml` on the released commit (its checks show
+as `ci / cpp`, `ci / web` and so on), and after it passes runs **deploy**: if CI fails, nothing is deployed and the
+live demo stays on the previous release. Deploy builds the web app with
 `SCORE4_BASE=/score-4/`, so every file is loaded from the project's GitHub Pages address, and publishes `web/dist`
 to <https://manosliod.github.io/score-4/>. The live demo is therefore always a released version. It is the only job
 that may write to GitHub Pages.

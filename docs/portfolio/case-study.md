@@ -76,7 +76,7 @@ UI for the dialog, radio group and snackbar. There is no `useEffect` anywhere: t
   a clear message, bad input is asked again, and the screen clears on every terminal.
 - **It is tested.** 24 C++ tests (rules, game and the recorded console flows), 22 component, store and service tests, and
   26 browser tests that play whole games at both Figma widths.
-- **It is checked on every push.** CI runs the format check, clang-tidy, the sanitizer and release builds, the
+- **It is checked before every merge and every deploy.** CI runs the format check, clang-tidy, the sanitizer and release builds, the
   WebAssembly build, ESLint, the type check, the tests, a bundle-size budget and a check that no comment written for
   people slips into the code.
 - **It is documented in plain words.** [`docs/rules.md`](../rules.md) explains the game,
