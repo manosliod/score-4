@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import type { Page } from '@playwright/test'
 
 export async function enterAges(page: Page, playerOne: string, playerTwo: string) {
-	await page.goto('/')
+	await page.goto('./')
 	await page.getByLabel('Player 1 age').fill(playerOne)
 	await page.getByLabel('Player 2 age').fill(playerTwo)
 	await page.getByRole('button', { name: 'Continue' }).click()

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { enterAges } from './play'
 
 test('Continue waits for both ages', async ({ page }) => {
-	await page.goto('/')
+	await page.goto('./')
 	const next = page.getByRole('button', { name: 'Continue' })
 	await expect(next).toBeDisabled()
 	await page.getByLabel('Player 1 age').fill('20')

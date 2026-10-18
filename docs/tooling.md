@@ -73,6 +73,7 @@ pnpm dev
 | `pnpm test` | Vitest: the engine service, the stores and the board. |
 | `pnpm build` | The production build, then a size check: the main script must stay under 125 kB and the styles under 12 kB, both gzipped. |
 | `pnpm e2e` | Playwright plays the game in Chromium at 412 and 1024 pixels wide. |
+| `E2E_BASE_URL=https://manosliod.github.io/score-4/ pnpm e2e` | The same tests against the live demo, without starting a local server. Keep the slash at the end of the address. |
 
 All code is TypeScript, including the config files and the two checks in `web/scripts/`, which Node 24 runs directly.
 

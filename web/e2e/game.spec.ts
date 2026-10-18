@@ -70,7 +70,7 @@ test('the new game dialog keeps the board on Cancel and clears it on New game', 
 test('an engine that fails to load shows the error, and Try again recovers', async ({ page }) => {
 	let failing = true
 	await page.route('**/*.wasm', (route) => (failing ? route.abort() : route.continue()))
-	await page.goto('/')
+	await page.goto('./')
 	await page.getByLabel('Player 1 age').fill('30')
 	await page.getByLabel('Player 2 age').fill('20')
 	await page.getByRole('button', { name: 'Continue' }).click()
