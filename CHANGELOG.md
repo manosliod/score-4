@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/manosliod/score-4/compare/v1.1.0...v1.1.1) (2026-10-21)
+
+
+### 🐛 Bug Fixes
+
+* KAN-34 round both ends of the segmented button ([#23](https://github.com/manosliod/score-4/issues/23)) ([34ffe96](https://github.com/manosliod/score-4/commit/34ffe96d048eee9c0018318636c548ccee0fbf8a))
+
 ## [1.1.0](https://github.com/manosliod/score-4/compare/v1.0.0...v1.1.0) (2026-10-21)
 
 
