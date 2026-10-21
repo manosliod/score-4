@@ -125,3 +125,50 @@ reaches the game, which refuses it with "Column N is full. Pick another column."
 
 **Why:** the message is about the move that was refused. Once a coin drops it is out of date, and on a small phone a
 game that ends within those seconds would have it covering Play again and New players.
+
+## The theme choice is one store for the whole app
+
+**Chose:** a module-level store in `web/src/shared/stores/`, read by the Theme button in both app bars.
+
+**Instead of:** a store per screen, or a feature folder for the theme.
+
+**Why:** the choice belongs to the whole app (`standards/react.md`, "State"), and both setup and game show the button.
+Features may not import each other, so the button and its store live in `shared/`.
+
+## Dark colours are written once
+
+**Chose:** a Tailwind `dark` custom variant used once around the dark token values. It matches an element when the page
+(or an ancestor) has `data-theme='dark'`, and, under `@media (prefers-color-scheme: dark)`, when the page is not set to
+Light: `:where([data-theme='dark'], [data-theme='dark'] *)` and `:where(:root:not([data-theme='light']),
+:root:not([data-theme='light']) *)`. On `:root` these are the two rules `standards/web.md` asks for.
+
+**Instead of:** copying the dark values into two blocks, or `light-dark()`.
+
+**Why:** one copy of the Figma values cannot drift, and the same variant makes `dark:` utilities right on any element,
+not only on `<html>`. `web/src/styles/tokens.test.ts` compiles a `dark:` utility and checks it on a child element.
+
+## The theme-color tags switch by `media`, not by colour
+
+**Chose:** for Light or Dark, the matching `<meta name="theme-color">` gets `media="all"` and the other `not all`;
+System puts the two `prefers-color-scheme` queries back.
+
+**Instead of:** writing a colour into the tag from script.
+
+**Why:** the colours stay in `index.html` once, the script holds no colour values, and on System the browser follows a
+change of the device theme by itself.
+
+## The Theme picker downloads on its own; the sheet and dialog do not
+
+**Chose:** the Theme picker is its own chunk, fetched when the pointer or focus reaches the Theme button. The sheet and
+dialog (the Base UI drawer and dialog) are in the first download, so a press opens one at once, in its Loading state
+while the picker downloads. The entry budget goes from 125 kB to 135 kB gzip.
+
+**Instead of:** the whole panel as one chunk, opened when its download finished while the Theme button showed itself
+busy; or waiting 250 ms before showing the Loading state, as battleship does.
+
+**Why:** the Figma frames "Game · Theme sheet · Compact · Loading" and "Game · Theme dialog · Expanded · Loading" show
+the surface open while the picker downloads, so its code must already be there. Opening at once also puts the scrim
+over the screen straight away, so New game cannot open a second modal while Theme is downloading. The surfaces cost
+about 16.5 kB gzip in the first download (entry 117.2 kB before, 133.7 kB after). The indicator slot and the picker
+are both `--spacing-theme-picker` (310 px, the Figma Loading slot) wide, so the surface keeps its size when the picker
+arrives.

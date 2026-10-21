@@ -3,6 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { AppBar } from '@/forest/components/app-bar'
 import { IconButton } from '@/forest/components/icon-button'
+import { ThemeButton } from '@/shared/components/theme/theme-button'
 import { engineService } from '@/shared/services/engine-service'
 import { loadOnce } from '@/shared/services/load-once'
 import type { MatchSetup } from '@/shared/types/game'
@@ -40,13 +41,16 @@ export function GameScreen({ setup, onBack, onNewPlayers }: GameScreenProps) {
 				title="Score 4"
 				leading={<IconButton icon="arrowBack" label="Back" onClick={onBack} />}
 				trailing={
-					<IconButton
-						icon="refresh"
-						label="New game"
-						onClick={() => {
-							setConfirming(true)
-						}}
-					/>
+					<>
+						<IconButton
+							icon="refresh"
+							label="New game"
+							onClick={() => {
+								setConfirming(true)
+							}}
+						/>
+						<ThemeButton />
+					</>
 				}
 			/>
 			{setup ? (

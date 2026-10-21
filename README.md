@@ -15,7 +15,8 @@ on Material 3. The console and the web play the exact same game, because there i
 - Seven columns, six rows; four in a line across, up and down, or on either diagonal wins; a full board is a tie.
 - The younger player starts (the same age: Player 1) and picks Red or Yellow.
 - A full column is refused with a clear message, and the same player picks again.
-- Web app: phone and desktop layouts, light and dark themes, reduced motion respected.
+- Web app: phone and desktop layouts, reduced motion respected, and a Theme button to pick System, Light or Dark;
+  the choice is remembered and applied before the page first shows.
 - Colour-blind safe coins (a circle on Red, a star on Yellow), full keyboard play and screen-reader announcements.
 
 ## Stack

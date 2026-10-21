@@ -67,6 +67,17 @@ test('the new game dialog keeps the board on Cancel and clears it on New game', 
 	await expect(column(page, 1)).toHaveAccessibleName('Column 1, 6 free')
 })
 
+test('the new game dialog keeps its margins on a 320 px phone', async ({ page }, info) => {
+	test.skip(info.project.name !== 'compact', 'a phone width')
+	await page.setViewportSize({ width: 320, height: 640 })
+	await startGame(page)
+	await page.getByRole('button', { name: 'New game' }).click()
+	const dialog = await page.getByRole('alertdialog').boundingBox()
+	expect(dialog?.x).toBeGreaterThanOrEqual(24)
+	expect((dialog?.x ?? 0) + (dialog?.width ?? Infinity)).toBeLessThanOrEqual(320 - 24)
+	expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320)
+})
+
 test('an engine that fails to load shows the error, and Try again recovers', async ({ page }) => {
 	let failing = true
 	await page.route('**/*.wasm', (route) => (failing ? route.abort() : route.continue()))
