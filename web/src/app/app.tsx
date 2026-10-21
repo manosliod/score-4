@@ -3,6 +3,7 @@ import { Activity, useState } from 'react'
 import { GameScreen, preloadGame } from '@/features/game/components/game-screen'
 import { SetupScreen } from '@/features/setup/components/setup-screen'
 import { SnackbarProvider } from '@/forest/components/snackbar'
+import { ThemePanelHost } from '@/shared/components/theme/theme-panel-host'
 import type { MatchSetup } from '@/shared/types/game'
 
 type Screen = Readonly<{ name: 'setup' }> | Readonly<{ name: 'game'; setup: MatchSetup | null }>
@@ -39,6 +40,7 @@ export function App() {
 					}}
 				/>
 			) : null}
+			<ThemePanelHost />
 		</SnackbarProvider>
 	)
 }

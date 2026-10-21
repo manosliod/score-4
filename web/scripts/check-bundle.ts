@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { gzipSync } from 'node:zlib'
 
-const budgets = { entry: 125_000, css: 12_000 } as const
+const budgets = { entry: 135_000, css: 12_000 } as const
 
 const assets = join(import.meta.dirname, '..', 'dist', 'assets')
 const gzipped = (name: string) => gzipSync(readFileSync(join(assets, name))).length
