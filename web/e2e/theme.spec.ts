@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import type { Locator, Page } from '@playwright/test'
 
-import { startGame } from './play'
+import { expectSegmentEnds, startGame } from './play'
 
 const lightSurface = 'rgb(250, 248, 255)'
 const darkSurface = 'rgb(18, 19, 24)'
@@ -35,6 +35,15 @@ test('the Theme button opens a sheet on compact and a dialog with Done from medi
 	}
 	await expect(page.getByRole('radio', { name: 'System' })).toBeChecked()
 	await expect(page.getByRole('radio', { name: 'System' })).toBeFocused()
+})
+
+test("with Dark checked the picker keeps the group's rounded ends and dividers between segments", async ({ page }) => {
+	await page.goto('./')
+	await openTheme(page)
+	const dark = page.getByRole('radio', { name: 'Dark' })
+	await dark.click()
+	await expect(dark).toBeChecked()
+	await expectSegmentEnds(picker(page))
 })
 
 test('a choice applies at once, keeps the panel open and closes with Escape', async ({ page }) => {

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { enterAges } from './play'
+import { enterAges, expectSegmentEnds } from './play'
 
 test('Continue waits for both ages', async ({ page }) => {
 	await page.goto('./')
@@ -41,4 +41,14 @@ test('Change ages and Back return to the ages with the values kept', async ({ pa
 	await page.getByRole('button', { name: 'Continue' }).click()
 	await page.getByRole('button', { name: 'Back' }).click()
 	await expect(page.getByLabel('Player 2 age')).toHaveValue('20')
+})
+
+test("with Yellow checked the colour choice keeps the group's rounded ends and dividers between segments", async ({
+	page
+}) => {
+	await enterAges(page, '30', '20')
+	const yellow = page.getByRole('radio', { name: 'Yellow' })
+	await yellow.click()
+	await expect(yellow).toBeChecked()
+	await expectSegmentEnds(page.getByRole('radiogroup', { name: 'Player 2’s colour' }))
 })

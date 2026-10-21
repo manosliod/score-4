@@ -172,3 +172,15 @@ over the screen straight away, so New game cannot open a second modal while Them
 about 16.5 kB gzip in the first download (entry 117.2 kB before, 133.7 kB after). The indicator slot and the picker
 are both `--spacing-theme-picker` (310 px, the Figma Loading slot) wide, so the surface keeps its size when the picker
 arrives.
+
+## The segment ends are found by element type
+
+**Chose:** the segmented button rounds its first and last segment with `first-of-type` and `last-of-type`, and draws
+the divider on every segment but the first of its type.
+
+**Instead of:** `first` and `last`.
+
+**Why:** Base UI puts a hidden input after each radio, so the last segment is never the last child and kept square
+corners, which showed when Dark (Theme picker) or Yellow (colour choice) was checked. The segments are the only
+elements of their type in the group. The e2e check `expectSegmentEnds` in `web/e2e/play.ts` compares the ends with the
+group's rounding and checks the dividers, for both pickers.

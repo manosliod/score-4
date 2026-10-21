@@ -11,6 +11,7 @@ these Figma frames: Theme picker 76-1156, Theme sheet 89-1587, Theme dialog 89-1
 | Behaviour | Checked by |
 | --- | --- |
 | Theme button in the app bar on every screen and width, after New game on game screens; icon = current choice | `theme-button.test.tsx`, `e2e/theme.spec.ts`, screenshots |
+| Segment ends follow the group's rounding and dividers sit between segments, with the last segment checked (Dark, Yellow) | `e2e/theme.spec.ts`, `e2e/setup.spec.ts` (`expectSegmentEnds`) |
 | Compact opens a bottom sheet (no Done); medium and up open a dialog with Done | `theme-button.test.tsx`, `e2e/theme.spec.ts` |
 | Choosing applies at once and does not close | both |
 | Done, Escape, scrim tap and a swipe down close; focus returns to the Theme button | `e2e/theme.spec.ts` |
@@ -32,6 +33,11 @@ these Figma frames: Theme picker 76-1156, Theme sheet 89-1587, Theme dialog 89-1
   16 trailing) and the picker keeps its 48 dp touch band.
 - Picker segments are Base UI `span` radios, which missed the button touch rules (long-press selected the label, taps
   waited for a double tap); they now get them.
+
+### Fixed after release
+
+- 1.1.0 shipped with square right corners on a checked last segment (Dark, Yellow): QA had checked the pickers only
+  in their default state, where the last segment has no fill. Fixed in KAN-34.
 
 ### Fixed after code review
 
