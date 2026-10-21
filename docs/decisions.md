@@ -182,5 +182,5 @@ the divider on every segment but the first of its type.
 
 **Why:** Base UI puts a hidden input after each radio, so the last segment is never the last child and kept square
 corners, which showed when Dark (Theme picker) or Yellow (colour choice) was checked. The segments are the only
-elements of their type in the group. The e2e check `expectSegmentEnds` in `web/e2e/play.ts` compares the ends with the
+elements of their type in the group. The e2e check `expectSegmentEnds` in `web/e2e/segmented-button.ts` compares the ends with the
 group's rounding and checks the dividers, for both pickers.

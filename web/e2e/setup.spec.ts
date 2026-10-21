@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
-import { enterAges, expectSegmentEnds } from './play'
+import { enterAges } from './play'
+import { expectSegmentEnds } from './segmented-button'
 
 test('Continue waits for both ages', async ({ page }) => {
 	await page.goto('./')
@@ -19,10 +20,13 @@ test('an age that is not a whole number is flagged on its field', async ({ page 
 	await expect(page.getByRole('heading', { name: 'Who’s playing?' })).toBeVisible()
 })
 
-test('the younger player starts and picks a colour; the other gets the other one', async ({ page }) => {
+test('the younger player starts and picks a colour; the other gets the other one, and the choice keeps its rounded ends', async ({
+	page
+}) => {
 	await enterAges(page, '30', '20')
 	await expect(page.getByRole('heading', { name: 'Player 2 goes first' })).toBeVisible()
 	await page.getByRole('radio', { name: 'Yellow' }).click()
+	await expectSegmentEnds(page.getByRole('radiogroup', { name: 'Player 2’s colour' }))
 	const players = page.getByRole('list', { name: 'Players' })
 	await expect(players).toContainText('Player 2Yellow')
 	await expect(players).toContainText('Player 1Red')
@@ -41,14 +45,4 @@ test('Change ages and Back return to the ages with the values kept', async ({ pa
 	await page.getByRole('button', { name: 'Continue' }).click()
 	await page.getByRole('button', { name: 'Back' }).click()
 	await expect(page.getByLabel('Player 2 age')).toHaveValue('20')
-})
-
-test("with Yellow checked the colour choice keeps the group's rounded ends and dividers between segments", async ({
-	page
-}) => {
-	await enterAges(page, '30', '20')
-	const yellow = page.getByRole('radio', { name: 'Yellow' })
-	await yellow.click()
-	await expect(yellow).toBeChecked()
-	await expectSegmentEnds(page.getByRole('radiogroup', { name: 'Player 2’s colour' }))
 })
