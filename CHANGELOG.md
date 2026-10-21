@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0](https://github.com/manosliod/score-4/compare/v1.0.0...v1.1.0) (2026-10-21)
+
+
+### ✨ Features
+
+* KAN-27 let the player choose System, Light or Dark ([#19](https://github.com/manosliod/score-4/issues/19)) ([df83e7e](https://github.com/manosliod/score-4/commit/df83e7ed529845f5c3c08cbb71d16e5ffa62fd38))
+* KAN-30 add the Forest theme picker, sheet and dialog surfaces ([#16](https://github.com/manosliod/score-4/issues/16)) ([9d15553](https://github.com/manosliod/score-4/commit/9d155532feecc39ebaf04232f41d24d47b51b27a))
+* KAN-31 store the theme choice and apply it before the first paint ([#17](https://github.com/manosliod/score-4/issues/17)) ([b7d70e0](https://github.com/manosliod/score-4/commit/b7d70e0c7a6b7c406924f4d7611f5066d553a854))
+* KAN-32 host the Theme panel in the app shell ([#18](https://github.com/manosliod/score-4/issues/18)) ([9ca3f30](https://github.com/manosliod/score-4/commit/9ca3f30d86f0893fed93192401808bc7c5a001a7))
+
 ## [1.0.0](https://github.com/manosliod/score-4/compare/v0.1.0...v1.0.0) (2026-10-16)
 
 
