@@ -1,6 +1,7 @@
 import { AppBar } from '@/forest/components/app-bar'
 import { IconButton } from '@/forest/components/icon-button'
 import { GameBoard } from '@/shared/components/board/game-board'
+import { ThemeButton } from '@/shared/components/theme/theme-button'
 import { engineService } from '@/shared/services/engine-service'
 import { emptyColumns } from '@/shared/types/game'
 import type { MatchSetup } from '@/shared/types/game'
@@ -28,6 +29,7 @@ function SetupContent({ onStart, onEngineError, onIntent }: SetupScreenProps) {
 			<AppBar
 				title="Score 4"
 				leading={step === 'colour' ? <IconButton icon="arrowBack" label="Back" onClick={changeAges} /> : null}
+				trailing={<ThemeButton />}
 			/>
 			<main className="flex flex-1 px-4 pt-4 pb-6 expanded:items-stretch expanded:justify-between expanded:gap-12 expanded:px-12 expanded:pt-0">
 				<div className="w-full medium:mx-auto medium:max-w-form expanded:mx-0 expanded:self-center">
