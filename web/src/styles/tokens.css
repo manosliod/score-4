@@ -1,8 +1,22 @@
-@theme {
+@custom-variant dark {
+	&:where([data-theme='dark'], [data-theme='dark'] *) {
+		@slot;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		&:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+			@slot;
+		}
+	}
+}
+
+@theme static {
 	--breakpoint-*: initial;
 	--breakpoint-medium: 600px;
 	--breakpoint-expanded: 840px;
+}
 
+@theme {
 	--font-sans: 'Roboto', system-ui, sans-serif;
 
 	--text-display-large: 57px;
@@ -84,6 +98,11 @@
 	--spacing-control: 40px;
 	--spacing-field: 56px;
 	--spacing-dialog: 312px;
+	--spacing-theme-picker: 310px;
+	--spacing-sheet: 640px;
+	--spacing-handle-width: 32px;
+	--spacing-handle-height: 4px;
+	--spacing-handle-area: 36px;
 	--spacing-dialog-margin: 24px;
 	--spacing-snackbar: 400px;
 	--spacing-form: 400px;
@@ -144,8 +163,8 @@
 	--coin-yellow-mark: #544522;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
+:root {
+	@variant dark {
 		--sys-primary: #b0c6ff;
 		--sys-on-primary: #152e60;
 		--sys-primary-container: #2e4578;

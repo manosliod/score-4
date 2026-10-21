@@ -6,7 +6,8 @@ Figma. If the two disagree, Figma wins and this file is updated.
 
 ## Theme
 
-Kit colour mode **Blue**: a classic blue board. Light and Dark follow `prefers-color-scheme`.
+Kit colour mode **Blue**: a classic blue board. The user picks the theme: System (follows `prefers-color-scheme`,
+the default), Light or Dark (see "Theme choice").
 
 The two coins borrow the kit's **Red** and **Yellow** modes. Each coin uses the same three roles (Primary Container fill,
 Primary ring, On Primary Container mark), read from its own mode. That keeps every colour a kit value: the Blue mode
@@ -96,3 +97,40 @@ Corners come from the kit: Medium 12, Large 16, Extra-large 28, Full for coins, 
 
 Mobile first. Compact (designed at 412) stacks everything in one column around the board. Medium reuses the compact
 column. Expanded (designed at 1024) puts a 360 dp side pane (players, turn, actions) next to the board pane.
+
+## Theme choice
+
+The Forest pattern **Theme picker** ([Patterns](https://www.figma.com/design/Qs0Ang2VyFUpVXaoHzgdr6?node-id=76-1156)):
+one M3 single-select segmented button with three segments, each with icon and label. The selected segment shows a check
+mark in place of its icon.
+
+| Segment | Icon | Stored value |
+| --- | --- | --- |
+| System (default) | `brightness_auto` | `system` |
+| Light | `light_mode` | `light` |
+| Dark | `dark_mode` | `dark` |
+
+- **Theme button**: a standard icon button (kit Icon button, Small, Round) labelled "Theme" is the last trailing action
+  of the top app bar on every screen, at every width, after New game on game screens. Its icon is the current choice. It
+  is never disabled.
+- **Compact (below 600 dp)**: the button opens the Forest **Theme sheet** (modal bottom sheet with drag handle, title
+  "Theme", the picker) over the 32 % scrim. Scrim tap, swipe down or Escape close it. Frames: "Game · Theme sheet
+  · Compact · Light/Dark".
+- **Medium and expanded (600 dp and up)**: the button opens the Forest **Theme dialog** (basic dialog, centred, headline
+  "Theme", the picker, one text button "Done") over the 32 % scrim. Done, Escape or scrim tap close it. There is no
+  Cancel/OK pair because the choice applies at once, and M3 allows a single dialog action only as an acknowledgement.
+  Frames: "Game · Theme dialog · Expanded · Light/Dark"; medium shows the same centred dialog over the compact column.
+- **Choosing**: the theme changes as soon as a segment is chosen. Choosing does not close the sheet or the dialog, so
+  the new theme is visible behind it and can be changed back.
+- **Keyboard and screen readers**: the picker is a radio group named "Theme" with radios System, Light and Dark. Tab
+  enters the group on the selected radio, arrow keys move, Space or Enter selects. When the sheet or dialog opens, focus
+  goes to the selected radio; Tab moves between the picker and Done; on close, focus returns to the Theme button.
+- **Loading and failure**: a press opens the sheet or dialog at once. While the picker downloads it is in its Loading
+  state: same surface, scrim and title "Theme", with the Forest loading indicator labelled "Loading Theme" in a
+  310 × 48 slot where the picker goes; the dialog keeps Done. The picker replaces the indicator in the same surface and
+  focus stays where it was. Closing it while loading cancels the open. If the download fails, no panel stays open and a
+  snackbar says "Couldn’t open Theme. Try again."; the next press tries again. Frames: "Game · Theme sheet · Compact ·
+  Loading · Light", "Game · Theme dialog · Expanded · Loading · Light", "Game · Theme load failed · Compact · Light".
+- **Persistence**: the choice is stored in `localStorage` under `theme`. An inline script in `index.html` sets
+  `data-theme` on `<html>` before first paint, so the page never shows the wrong theme. `<meta name="theme-color">`
+  follows the applied theme (Blue LT or Blue DT Surface).
