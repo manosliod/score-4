@@ -7,9 +7,13 @@
 
 @layer base {
 	html {
-		color-scheme: light dark;
+		color-scheme: light;
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
+
+		@variant dark {
+			color-scheme: dark;
+		}
 	}
 
 	html,
@@ -25,6 +29,7 @@
 	}
 
 	button,
+	[role='radio'],
 	[role='gridcell'] {
 		touch-action: manipulation;
 		user-select: none;
@@ -60,8 +65,13 @@
 		opacity: var(--state-focus);
 	}
 
-	&:active:not(:disabled, [aria-disabled='true'])::after {
+	&:active:not(:disabled, [aria-disabled='true'])::after,
+	&[aria-busy='true']::after {
 		opacity: var(--state-pressed);
+	}
+
+	&[aria-busy='true'] {
+		cursor: progress;
 	}
 }
 
