@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import type { Locator, Page } from '@playwright/test'
 
 import { startGame } from './play'
+import { expectSegmentEnds } from './segmented-button'
 
 const lightSurface = 'rgb(250, 248, 255)'
 const darkSurface = 'rgb(18, 19, 24)'
@@ -37,7 +38,9 @@ test('the Theme button opens a sheet on compact and a dialog with Done from medi
 	await expect(page.getByRole('radio', { name: 'System' })).toBeFocused()
 })
 
-test('a choice applies at once, keeps the panel open and closes with Escape', async ({ page }) => {
+test('a choice applies at once, keeps the panel open with its rounded ends and closes with Escape', async ({
+	page
+}) => {
 	await page.emulateMedia({ colorScheme: 'light' })
 	await page.goto('./')
 	await openTheme(page)
@@ -45,6 +48,7 @@ test('a choice applies at once, keeps the panel open and closes with Escape', as
 	await expect(html(page)).toHaveAttribute('data-theme', 'dark')
 	await expect(surface(page)).toHaveCSS('background-color', darkSurface)
 	await expect(picker(page)).toBeVisible()
+	await expectSegmentEnds(picker(page))
 	await page.keyboard.press('Escape')
 	await expect(picker(page)).toBeHidden()
 	await expect(themeButton(page)).toBeFocused()
