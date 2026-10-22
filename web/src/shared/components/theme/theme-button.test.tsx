@@ -1,8 +1,7 @@
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import brightnessAuto from '@/forest/assets/icons/brightness_auto.svg'
-import darkMode from '@/forest/assets/icons/dark_mode.svg'
+import { icons } from '@/forest/components/icons'
 import { mockWindowClass } from '@/testing/window'
 
 const renderButton = async () => {
@@ -62,10 +61,10 @@ describe('theme button', () => {
 	it('applies and stores a choice at once and stays open', async () => {
 		mockWindowClass(false)
 		const button = await renderButton()
-		expect(icon(button)).toContain(brightnessAuto)
+		expect(icon(button)).toContain(icons.brightnessAuto)
 		const dialog = await open(button)
 		fireEvent.click(within(dialog).getByRole('radio', { name: 'Dark' }))
-		expect(icon(button)).toContain(darkMode)
+		expect(icon(button)).toContain(icons.darkMode)
 		expect(within(dialog).getByRole('radio', { name: 'Dark' })).toBeChecked()
 		expect(document.documentElement.dataset['theme']).toBe('dark')
 		expect(localStorage.getItem('theme')).toBe('dark')

@@ -184,3 +184,12 @@ the divider on every segment but the first of its type.
 corners, which showed when Dark (Theme picker) or Yellow (colour choice) was checked. The segments are the only
 elements of their type in the group. The e2e check `expectSegmentEnds` in `web/e2e/segmented-button.ts` compares the ends with the
 group's rounding and checks the dividers, for both pickers.
+
+## Icons come from the Material Symbols package
+
+**Chose:** `Icon` imports each icon from `@material-symbols/svg-400`.
+
+**Instead of:** SVG files exported from Figma and copied into `web/src/forest/assets/icons/`.
+
+**Why:** The copies were Material Symbols already, so each new icon meant another file and nothing tied them to a
+version. They are the outlined set (`error` filled) and are still drawn as a CSS mask, so they follow the colour tokens.
