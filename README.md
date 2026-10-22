@@ -102,3 +102,6 @@ game core, its bugs fixed, and a web app on WebAssembly designed in Figma. The b
 ## License
 
 MIT © 2026 Manos Liodakis · [LinkedIn](https://www.linkedin.com/in/emmanouil-liodakis/) · [GitHub](https://github.com/manosliod)
+
+Third-party: [Material Symbols](https://github.com/google/material-design-icons) icons by Google, Apache License 2.0 ·
+[Roboto](https://github.com/googlefonts/roboto-classic) font by Google, SIL Open Font License 1.1.

@@ -7,7 +7,7 @@ import lightMode from '@material-symbols/svg-400/outlined/light_mode.svg'
 import refresh from '@material-symbols/svg-400/outlined/refresh.svg'
 import type { CSSProperties } from 'react'
 
-const icons = { arrowBack, brightnessAuto, check, darkMode, error, lightMode, refresh }
+export const icons = { arrowBack, brightnessAuto, check, darkMode, error, lightMode, refresh }
 
 export type IconName = keyof typeof icons
 
